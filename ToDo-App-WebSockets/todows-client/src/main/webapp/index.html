@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ToDo List</title>
+
+	  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	  <!-- Include all compiled plugins (below), or include individual files as needed -->
+	  <script src="js/bootstrap.min.js"></script>
+	  <script src="js/app.js"></script>
+
+	  <script>
+		  $(function () {
+			  $('[data-toggle="tooltip"]').tooltip()
+		  })
+	  </script>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+  <body ng-app="toDoApp" ng-controller="MainCtrl">
+
+  	<!-- ERROR MESSAGES -->
+  	<error-message></error-message>
+	<con-closed-message></con-closed-message>
+
+	<!-- CONTAINER with the app -->
+	<div class="container" ng-hide="lostConnection || closedConnection">
+
+		<!-- HEADING of the page -->
+		<div class="jumbotron">
+			<h1>Welcome to the ToDo Web App!</h1>
+			<p>This web page will allow you to manage a ToDo task repository</p>
+		</div>
+
+		<!-- RESET button -->
+		<button type="button" class="btn btn-primary btn-lg" id="resetBtn"
+				data-toggle="tooltip" data-placement="top"
+				title="Important!!! By clicking this button you will recover the last ToDo list before the RemoveAll action."
+				ng-click="resetToDos()" ng-hide="disableReset">
+			Reset ToDo List
+			<span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+		</button>
+
+		<div class="container" style="margin-top: 20px;">
+			<!-------->
+			<div id="content">
+				<!-- TABS -->
+				<ul id="tabs" class="nav nav-tabs" data-tabs="tabs" ng-controller="tabCtrl">
+					<li class="active"><a href="#home" data-toggle="tab" ng-click="getToDoList('home')">Home</a></li>
+					<li><a href="#addToDo" data-toggle="tab" ng-click="getToDoList('add')" id="addTab">Add ToDo</a></li>
+					<li><a href="#listToDo" data-toggle="tab" ng-click="getToDoList('list')" id="listTab">List ToDo</a></li>
+					<li><a href="#removeToDo" data-toggle="tab" ng-click="getToDoList('remove')" id="removeTab">Remove ToDo</a></li>
+				</ul>
+				
+				<div id="my-tab-content" class="tab-content">
+					<!-- HOME TAB -->
+					<div class="tab-pane active" id="home" ng-controller="HomeCtrl">
+						<h2>Select one of the tabs:</h2>
+						<ul>
+							<li class="homeList" ng-repeat="tab in tabs">
+								<b><span ng-bind="tab.title"></span></b>: <span ng-bind="tab.description"></span>
+							</li>
+						</ul>
+					</div>
+					
+					<!-- ADD_TODO TAB -->
+					<div class="tab-pane" id="addToDo">
+						<div class="leftForm">
+							<form role="form" name="addToDoForm" ng-submit="addToDo()" ng-controller="addToDoFormCtrl">
+							  <div class="form-group">
+								<label for="inputDescription">Task Description:</label>
+								<input type="text" class="form-control" id="inputDescription" placeholder="Description" required
+									ng-model="fields.task">
+							  </div>
+							  <div class="form-group">
+								<label for="inputContext">Task Context:</label>
+								<input type="text" class="form-control" id="inputContext" placeholder="Context" required
+									ng-model="fields.context">
+							  </div>
+							  <div class="form-group">
+								<label for="inputProject">Task Project:</label>
+								<input type="text" class="form-control" id="inputProject" placeholder="Project" required
+									ng-model="fields.project">
+							  </div>
+							  <div class="form-group">
+								<label for="inputPriority">Task Priority:</label>
+								<input type="number" min="1" max="10" class="form-control" id="inputPriorityAddForm"
+									   placeholder="Priority" required ng-model="fields.priority">
+							  </div>
+							  <button type="submit" class="btn btn-primary" id="formButton">Add ToDo</button>
+							</form>
+						</div>
+						<todos-table></todos-table>
+					</div>
+					
+					<!-- LIST_TODO TAB -->
+					<div class="tab-pane" id="listToDo">
+						<div class="leftForm">
+							<form role="form" name="listToDoForm" ng-submit="listToDos()" ng-controller="listToDosFormCtrl" novalidate>
+							  <div class="form-group">
+								<label>ToDo field:</label><br>
+									<select class="form-control" ng-model="selector" ng-options="s.name for s in selectors" required>
+									</select>
+							  </div>
+							  <div class="form-group">
+								<label>Text to match:</label>
+									<input type="text" class="form-control" id="inputQueryAddForm" placeholder="Text"
+											ng-model="query" ng-show="selector.tag!='priority'" required>
+									<input type="number" min="1" max="10" class="form-control" id="inputPriorityListForm"
+										   placeholder="Priority" ng-model="query" ng-hide="selector.tag!='priority'" required>
+							  </div>
+							  <button type="submit" class="btn btn-primary" id="formListButton">List ToDo's</button>
+							</form>
+							<div class="allButtonDiv">
+								<div class="mySpan"><span>You have another option:</span></div>
+								<div>
+									<form role="form" name="listAllForm" ng-submit="listAll()" ng-controller="listAllFormCtrl">
+										<button type="submit" class="btn btn-primary" id="formListAllButton">List All</button>
+									</form>
+								</div>
+							</div>
+						</div>
+						<todos-table></todos-table>
+					</div>
+					
+					<!-- REMOVE_TODO TAB -->
+					<div class="tab-pane" id="removeToDo">
+						<div class="leftForm">
+							<form role="form" name="removeToDosForm" ng-submit="removeToDos()" ng-controller="removeToDosFormCtrl"
+									novalidate>
+							  <div class="form-group">
+								<label>ToDo field:</label><br>
+									<select class="form-control" ng-model="selector" ng-options="s.name for s in selectors" required>
+									</select>
+							  </div>
+							  <div class="form-group">
+								<label>Text to match:</label>
+								  <input type="text" class="form-control" id="inputQueryRemoveForm" placeholder="Text"
+										 ng-model="query" ng-show="selector.tag!='priority'" required>
+								  <input type="number" min="1" max="10" class="form-control" id="inputPriority" placeholder="Priority"
+										 ng-model="query" ng-hide="selector.tag!='priority'" required>
+							  </div>
+							  <button type="submit" class="btn btn-primary" id="formRemoveButton">Remove ToDo's</button>
+							</form>
+							<div class="allButtonDiv">
+								<div class="mySpan"><span>You have another option:</span></div>
+								<div>
+									<form role="form" name="removeAllForm" ng-submit="removeAll()" ng-controller="removeAllFormCtrl">
+										<button type="submit" class="btn btn-primary" id="formRemoveAllButton">Remove All</button>
+									</form>
+								</div>
+							</div>
+						</div>
+						<!--  LISTA DE ToDos-->
+						<todos-table></todos-table>
+					</div>
+				</div>
+			</div>
+		</div> <!-- container -->
+	</div>
+  </body>
+</html>

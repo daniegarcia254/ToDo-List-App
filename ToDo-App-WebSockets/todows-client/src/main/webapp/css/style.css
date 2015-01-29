@@ -1,0 +1,97 @@
+.homeList{
+	margin-bottom: 5px;
+	font-size: 125%;
+}
+.jumbotron {
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+
+#formListButton, #formRemoveButton{
+	margin-top: 10px;
+}
+
+#formButton:hover{
+	background-color: #40FF00;
+}
+
+#formRemoveAllButton, #formListAllButton {
+	width: 30%;
+	margin-top: -20px;
+	background-color: #FF0000;
+	font-weight: bold;
+}
+#formAllButton:hover{
+	background-color: #40FF00;
+}
+
+.leftForm{
+	margin-top: 20px;
+	border: 1px solid blue;
+	padding: 10px;
+	width: 30%;
+	float:left;
+	margin-bottom: 80px;
+}
+.allButtonDiv{
+	clear: left;
+}
+.mySpan{
+	font-weight: bold;
+	margin-top: 50px;
+	margin-bottom: 20px;
+	float: none;
+}
+
+.showResult{
+	margin-top: 20px;
+	float: left;
+	margin-left: 40px;
+	position: relative;
+}
+
+th#taskCol{
+	min-width: 200px;
+	max-width: 200px;
+}
+th#contextCol, #projectCol{
+	min-width: 175px;
+	max-width: 175px;
+}
+th#idCol, #priorityCol{
+	min-width: 70px;
+	max-width: 70px;
+}
+
+#errorSpan{
+	font-weight: bold;
+	color: red;
+}
+
+.deleteImg{
+	width: 20px;
+	height: 20px;
+}
+.deleteImg:hover{
+	cursor: pointer;
+}
+#resetBtn{
+	float: right;
+	border-color: orangered;
+}
+
+.alert-box {
+	color:#555;
+	border-radius:10px;
+	font-family:Tahoma,Geneva,Arial,sans-serif;font-size:11px;
+	padding:10px 10px 10px 36px;
+	margin:10px;
+}
+.alert-box span {
+	font-weight:bold;
+	text-transform:uppercase;
+}
+.error {
+	background:#ffecec no-repeat 10px 50%;
+	border:1px solid #f5aca6;
+}

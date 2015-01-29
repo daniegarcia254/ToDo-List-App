@@ -1,0 +1,8 @@
+<div class="alert-box error" ng-show="lostConnection">
+    <span>error: </span> There's been an error in the WebSocket connection establishment
+    with <b>{{wb_endpoint}}</b>
+    <br><br>
+    <span ng-show="tryAgain">Oooops!! Do you wanna try again?</span>
+    <span ng-hide="tryAgain">Not worked!! Try again? </span>
+    <button class="btn btn-sm btn-success" style="margin-left: 30px; width: 100px" ng-click="openSocket()">Yes</button>
+</div>
