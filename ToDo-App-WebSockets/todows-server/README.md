@@ -1,7 +1,7 @@
 # ToDo Websockets Server 
 This project contains a demonstration of a web service build with [WebSockets](https://tyrus.java.net/).
 
-Just write in your terminal ``gradle server``` to run the web service.
+Just write in your terminal ``gradle server`` to run the web service. It will be available at ```ws://localhost:8025/```
 
 
 ## Specs
