@@ -1,0 +1,27 @@
+<!-- Displays a table with the ToDo's information in the variable [toDos] -->
+<div class="showResult" ng-controller="showResultCtrl">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th id="idCol">#</th>
+				<th id="taskCol">Task Description</th>
+				<th id="contextCol">Context</th>
+				<th id="projectCol">Project</th>
+				<th id="priorityCol">Priority</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="todo in toDos">
+				<td ng-bind="todo.id"></td>
+				<td ng-bind="todo.task"></td>
+				<td ng-bind="todo.context"></td>
+				<td ng-bind="todo.project"></td>
+				<td ng-bind="todo.priority"></td>
+				<td><img alt="delete" src="imgs/delete_icon.png" class="deleteImg"
+						ng-hide="hideValue" ng-click="deleteToDo(todo.id)"></img></td>
+			</tr>
+		</tbody>
+	</table>
+	<span id="errorSpan" ng-bind="errorMessage"></span>
+</div>
