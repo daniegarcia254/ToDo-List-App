@@ -1,11 +1,141 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ToDo List</title>
+
+    <!-- Bootstrap -->
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="/stylesheets/style.css" rel="stylesheet">
   </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+  <body ng-app="toDoApp">
+	<div class="container">
+		<div class="jumbotron">
+			<h1>Welcome to the ToDo Web App!</h1>
+			<p>This web page will allow you to manage a ToDo task repository</p>
+		</div>
+		
+		<div class="container">
+			<!-------->
+			<div id="content">
+				<!-- TABS -->
+				<ul id="tabs" class="nav nav-tabs" data-tabs="tabs" ng-controller="tabCtrl">
+					<li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+					<li><a href="#addToDo" data-toggle="tab" ng-click="getToDoList('add')">Add ToDo</a></li>
+					<li><a href="#listToDo" data-toggle="tab" ng-click="getToDoList('list')">List ToDo</a></li>
+					<li><a href="#removeToDo" data-toggle="tab" ng-click="getToDoList('remove')">Remove ToDo</a></li>
+				</ul>
+				
+				<div id="my-tab-content" class="tab-content">
+					<!-- HOME TAB -->
+					<div class="tab-pane active" id="home" ng-controller="HomeCtrl">
+						<h2>Select one of the tabs:</h2>
+						<ul>
+							<li class="homeList" ng-repeat="tab in tabs">
+								<b><span ng-bind="tab.title"></span></b>: <span ng-bind="tab.description"></span>
+							</li>
+						</ul>
+					</div>
+					
+					<!-- ADD TODO TAB -->
+					<div class="tab-pane" id="addToDo">
+						<div class="leftForm">
+							<form role="form" name="addToDoForm" ng-submit="addToDo()" ng-controller="addToDoFormCtrl">
+							  <div class="form-group">
+								<label for="inputDescription">Task Description:</label>
+								<input type="text" class="form-control" id="inputDescription" placeholder="Description" required
+									ng-model="fields.task">
+							  </div>
+							  <div class="form-group">
+								<label for="inputContext">Task Context:</label>
+								<input type="text" class="form-control" id="inputContext" placeholder="Context" required
+									ng-model="fields.context">
+							  </div>
+							  <div class="form-group">
+								<label for="inputProject">Task Project:</label>
+								<input type="text" class="form-control" id="inputProject" placeholder="Project" required
+									ng-model="fields.project">
+							  </div>
+							  <div class="form-group">
+								<label for="inputPriority">Task Priority:</label>
+								<input type="number" min="1" max="10" class="form-control" id="inputPriority" placeholder="Priority" required
+									ng-model="fields.priority">
+							  </div>
+							  <button type="submit" class="btn btn-primary" id="formButton">Add ToDo</button>
+							</form>
+						</div>
+						<todos-table></todos-table>
+					</div>
+					
+					<!-- LIST TODO TAB -->
+					<div class="tab-pane" id="listToDo">
+						<div class="leftForm">
+							<form role="form" name="listToDoForm" ng-submit="listToDos()" ng-controller="listToDosFormCtrl">
+							  <div class="form-group">
+								<label for="inputSelector">ToDo field:</label><br>
+									<select class="form-control" ng-model="selector" ng-options="s.name for s in selectors" required>
+									</select>
+							  </div>
+							  <div class="form-group">
+								<label for="inputQuery">Text to match:</label>
+									<input type="text" class="form-control" id="inputQuery" placeholder="Text"
+											ng-model="query" ng-show="selector.tag!='priority'" required>
+									<input type="number" min="1" max="10" class="form-control" id="inputPriority" placeholder="Priority" 
+											ng-model="query" ng-hide="selector.tag!='priority'" required>
+							  </div>
+							  <button type="submit" class="btn btn-primary" id="formButton">List ToDo's</button>
+							</form>
+						</div>
+						<todos-table></todos-table>
+						<div class="allButtonDiv">
+							<div id="mySpan"><span>You have another option:</span></div>
+							<div>
+								<form role="form" name="listAllForm" ng-submit="listAll()" ng-controller="listAllFormCtrl">
+									<button type="submit" class="btn btn-primary" id="formAllButton">List All the ToDo's</button>
+								</form>
+							</div>
+						</div>
+						
+					</div>
+					
+					<!-- REMOVE TODO TAB -->
+					<div class="tab-pane" id="removeToDo">
+						<div class="leftForm">
+							<form role="form" name="listToDoForm" ng-submit="removeToDos()" ng-controller="removeToDosFormCtrl">
+							  <div class="form-group">
+								<label for="inputSelector">ToDo field:</label><br>
+									<select class="form-control" ng-model="selector" ng-options="s.name for s in selectors" required>
+									</select>
+							  </div>
+							  <div class="form-group">
+								<label for="inputQuery">Text to match:</label>
+								<input type="text" class="form-control" ng-model="query" id="inputQuery" placeholder="Text" required>
+							  </div>
+							  <button type="submit" class="btn btn-primary" id="formButton">Remove ToDo's</button>
+							</form>
+						</div>
+						<todos-table></todos-table>
+						<div class="allButtonDiv">
+							<div id="mySpan"><span>You have another option:</span></div>
+							<div>
+								<form role="form" name="removeAllForm" ng-submit="removeAll()" ng-controller="removeAllFormCtrl">
+									<button type="submit" class="btn btn-primary" id="formAllButton">Remove All the ToDo's</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div> <!-- container -->
+	</div>
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script src="/javascripts/angularApp.js"></script>
   </body>
 </html>
