@@ -8,9 +8,10 @@
   -------------------------------------*/
   //Service to retrieve the complete ToDo list of the repository
   app.factory('toDoListService', function($http) {
-	   return {
-		getToDoList: function(callback) {
-			$http.get(API_URI).success(callback);
+
+	  return {
+		getToDoList: function(cb) {
+			$http.get(API_URI).success(cb);
 		}
 	   }
   });
@@ -29,7 +30,7 @@
 	$scope.getToDoList = function(tabName){
 		//Uses the a service for get the list
 		toDoListService.getToDoList(function(data) {
-			$rootScope.toDos = data.toDoList;
+			$rootScope.toDos = data;
 		});
 		$rootScope.errorMessage = "";
 		if (tabName == 'add') $rootScope.hideValue = "true";
@@ -48,7 +49,7 @@
 		var res = $http.post(API_URI, todo);
 		res.success(function(data, status, headers, config) {
 			toDoListService.getToDoList(function(data) {
-				$rootScope.toDos = data.toDoList;
+				$rootScope.toDos = data;
 			});
 		});
 		res.error(function(data, status, headers, config) {
@@ -64,7 +65,7 @@
 		var query_bis = $scope.query;
 		$http.get(API_URI+'/list/'+$scope.selector.tag+'/'+$scope.query)
 			.success(function(data, status, headers, config) {
-				$rootScope.toDos = data.toDoList;
+				$rootScope.toDos = data;
 				$rootScope.errorMessage = "";
 			})
 			.error(function(data, status, headers, config) {
@@ -83,7 +84,7 @@
 	$scope.listAll = function() {
 		//Uses the a service for get the list
 		toDoListService.getToDoList(function(data) {
-			$rootScope.toDos = data.toDoList;
+			$rootScope.toDos = data;
 			if (data.toDoList.length === 0){
 				$rootScope.errorMessage = "The repository is empty!";
 			} else {
@@ -100,7 +101,7 @@
 		var query_bis = $scope.query;
 		$http.delete(API_URI+'/remove/'+$scope.selector.tag+'/'+$scope.query)
 			.success(function(data, status, headers, config) {
-				$rootScope.toDos = data.toDoList;
+				$rootScope.toDos = data;
 				$rootScope.errorMessage = "";
 			})
 			.error(function(data, status, headers, config) {
@@ -116,7 +117,7 @@
 	$scope.removeAll = function() {
 		$http.delete(API_URI+'/removeAll')
 			.success(function(data, status, headers, config) {
-				$rootScope.toDos = data.toDoList;
+				$rootScope.toDos = data;
 				$rootScope.errorMessage = "All the ToDo's have been removed from the repository!";
 			})
 			.error(function(data, status, headers, config) {
@@ -129,7 +130,7 @@
   //Controller for keeping updated the table with the ToDo's
   app.controller('showResultCtrl', ['$scope', '$rootScope', '$http', 'toDoListService', function($scope, $rootScope, $http, toDoListService){
 	toDoListService.getToDoList(function(data) {
-		$rootScope.toDos = data.toDoList;
+		$rootScope.toDos = data;
 	});
 	
 	//Removes a single ToDo identified by its [id]
@@ -137,7 +138,7 @@
 		//alert(id);
 		$http.delete(API_URI+'/remove/'+id)
 			.success(function(data, status, headers, config) {
-				$rootScope.toDos = data.toDoList;
+				$rootScope.toDos = data;
 				$rootScope.errorMessage = "";
 			})
 			.error(function(data, status, headers, config) {
