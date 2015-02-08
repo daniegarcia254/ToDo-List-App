@@ -12,6 +12,18 @@ router.get('/todos', function(req, res, next) {
     res.json(posts);
   });
 });
+
+router.post('/todos', function(req, res, next) {
+  var post = new ToDo(req.body);
+
+  post.save(function(err, post){
+    if(err){ return next(err); }
+
+    res.json(post);
+  });
+});
+
+//GET home page
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
