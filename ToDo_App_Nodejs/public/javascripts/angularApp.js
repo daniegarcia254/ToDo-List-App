@@ -105,6 +105,14 @@
 	$scope.numberOrText = function(){
 		console.log($scope.selector);
 	};
+
+	$scope.checkEnableButton = function(){
+		if (typeof $scope.selector == 'undefined') {
+			return true;
+		} else {
+			return !(typeof $scope.query != 'undefined' && $scope.query.length > 0);
+		}
+	};
   }]);
 
   //Controller for the "List All ToDo's" form

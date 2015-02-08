@@ -72,7 +72,7 @@
 					<!-- LIST TODO TAB -->
 					<div class="tab-pane" id="listToDo">
 						<div class="leftForm">
-							<form role="form" name="listToDoForm" ng-submit="listToDos()" ng-controller="listToDosFormCtrl">
+							<form role="form" name="listToDoForm" ng-submit="listToDos()" ng-controller="listToDosFormCtrl" novalidate>
 							  <div class="form-group">
 								<label for="inputSelector">ToDo field:</label><br>
 									<select class="form-control" ng-model="selector" ng-options="s.name for s in selectors" required>
@@ -82,10 +82,12 @@
 								<label for="inputQuery">Text to match:</label>
 									<input type="text" class="form-control" id="inputQuery" placeholder="Text"
 											ng-model="query" ng-show="selector.tag!='priority'" required>
-									<input type="number" min="1" max="10" class="form-control" id="inputPriority" placeholder="Priority" 
+									<input type="number" min="1" max="10" class="form-control" id="inputPriority" placeholder="Priority"
 											ng-model="query" ng-hide="selector.tag!='priority'" required>
 							  </div>
-							  <button type="submit" class="btn btn-primary" id="formButton">List ToDo's</button>
+							  <button type="submit" class="btn btn-primary" id="formButton" ng-disabled="checkEnableButton()">
+								  List ToDo's
+							  </button>
 							</form>
 						</div>
 						<todos-table></todos-table>
