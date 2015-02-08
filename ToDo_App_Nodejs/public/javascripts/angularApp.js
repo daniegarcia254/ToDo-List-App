@@ -91,14 +91,17 @@
    app.controller('listAllFormCtrl', ['$scope', '$rootScope', '$http', 'ToDosService', function($scope, $rootScope, $http, ToDosService){
 	$scope.listAll = function() {
 		//Uses the a service for get the list
-		ToDosService.getAll(function(data) {
+
+		ToDosService.getAll();
+
+		/*ToDosService.getAll(function(data) {
 			$rootScope.toDos = data;
 			if (data.toDoList.length === 0){
 				$rootScope.errorMessage = "The repository is empty!";
 			} else {
 				$rootScope.errorMessage = "";
 			}
-		});
+		});*/
 	};
   }]);
 
