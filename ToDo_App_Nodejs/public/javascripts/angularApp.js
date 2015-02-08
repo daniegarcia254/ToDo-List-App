@@ -7,7 +7,7 @@
 	SERVICES
   -------------------------------------*/
   //Service to retrieve the complete ToDo list of the repository
-  app.factory('ToDosService', function($http) {
+  app.factory('ToDosService', function($http, $rootScope) {
 
 	  var t = {
 		  todos: []
@@ -16,7 +16,14 @@
 	  t.getAll = function() {
 			return $http.get(API_URI).success(function(data){
 				angular.copy(data, t.todos);
+				angular.copy(data, $rootScope.toDos);
 			});
+	  };
+
+	  t.create = function(todo, cb) {
+		  return $http.post(API_URI, todo).success(function(data, cb){
+			  t.getAll();
+		  });
 	  };
 
 	  return t;
@@ -51,17 +58,10 @@
   app.controller('addToDoFormCtrl', ['$scope', '$rootScope', '$http', 'ToDosService', function($scope, $rootScope, $http, ToDosService){
 	$scope.addToDo = function() {
 		var todo=$scope.fields;	//Take the form fields
-		$scope.fields = "";  //Clean the form
+		$scope.fields = "";  //Clear the form
 
-		//Make a POST call to add the ToDo to the repository
-		var res = $http.post(API_URI, todo);
-		res.success(function(data, status, headers, config) {
-			ToDosService.getAll(function(data) {
-				$rootScope.toDos = data;
-			});
-		});
-		res.error(function(data, status, headers, config) {
-			alert( "failure message: " + JSON.stringify({data: data}));
+		ToDosService.create(todo, function(){
+			$rootScope.toDos = ToDosService.todos;
 		});
 	};
   }]);
