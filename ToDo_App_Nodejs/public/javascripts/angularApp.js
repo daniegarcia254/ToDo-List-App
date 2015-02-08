@@ -14,10 +14,24 @@
 	  };
 
 	  t.getAll = function() {
-			return $http.get(API_URI).success(function(data){
+		  return $http.get(API_URI).success(function (data) {
 				angular.copy(data, t.todos);
 				angular.copy(data, $rootScope.toDos);
-			});
+		  });
+	  };
+
+	  t.getFilteredToDos = function(tag, query, cb) {
+		  return $http.get(API_URI+"/"+tag+"/"+query).success(function (data) {
+			  console.log(data);
+			  angular.copy(data, t.todos);
+			  angular.copy(data, $rootScope.toDos);
+		  });
+	  };
+
+	  t.removeToDo = function(todo, cb) {
+		  return $http.delete(API_URI, todo).success(function(data, cb){
+			  t.getAll();
+		  });
 	  };
 
 	  t.create = function(todo, cb) {
@@ -45,7 +59,7 @@
 
 	$scope.getToDoList = function(tabName){
 
-		ToDosService.getAll();
+		ToDosService.getAll(null, null, null);
 
 		$rootScope.errorMessage = "";
 		if (tabName == 'add') $rootScope.hideValue = "true";
@@ -71,7 +85,7 @@
     $scope.selectors = fields;
 	$scope.listToDos = function() {
 		var query_bis = $scope.query;
-		$http.get(API_URI+'/list/'+$scope.selector.tag+'/'+$scope.query)
+		/*$http.get(API_URI+'/list/'+$scope.selector.tag+'/'+$scope.query)
 			.success(function(data, status, headers, config) {
 				$rootScope.toDos = data;
 				$rootScope.errorMessage = "";
@@ -79,29 +93,24 @@
 			.error(function(data, status, headers, config) {
 				$rootScope.toDos = [];
 				$rootScope.errorMessage = "Not ToDo's matches found with \"" + $scope.selector.tag + "= " + query_bis + "\"";
-			});
+			});*/
+
+		ToDosService.getFilteredToDos($scope.selector.tag, $scope.query, function(){
+			$rootScope.toDos = ToDosService.todos;
+		});
+
 		$scope.query = "";
 	};
+
 	$scope.numberOrText = function(){
 		console.log($scope.selector);
-	}
+	};
   }]);
 
   //Controller for the "List All ToDo's" form
    app.controller('listAllFormCtrl', ['$scope', '$rootScope', '$http', 'ToDosService', function($scope, $rootScope, $http, ToDosService){
 	$scope.listAll = function() {
-		//Uses the a service for get the list
-
-		ToDosService.getAll();
-
-		/*ToDosService.getAll(function(data) {
-			$rootScope.toDos = data;
-			if (data.toDoList.length === 0){
-				$rootScope.errorMessage = "The repository is empty!";
-			} else {
-				$rootScope.errorMessage = "";
-			}
-		});*/
+		ToDosService.getAll(null, null, null);
 	};
   }]);
 
