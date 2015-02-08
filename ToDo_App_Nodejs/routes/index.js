@@ -6,10 +6,10 @@ var todo = mongoose.model('ToDo');
 
 /* GET all ToDos. */
 router.get('/todos', function(req, res, next) {
-  todo.find(function(err, posts){
+  todo.find(function(err, todos){
     if(err){ return next(err); }
 
-    res.json(posts);
+    res.json(todos);
   });
 });
 
@@ -44,12 +44,12 @@ router.get('/todos/:tag/:query', function(req, res, next) {
 /* POST --> create a new ToDo */
 router.post('/todos', function(req, res, next) {
 
-  var post = new todo(req.body);
+  var todo = new todo(req.body);
 
-  post.save(function(err, post){
+  todo.save(function(err, todo){
     if(err){ return next(err); }
 
-    res.json(post);
+    res.json(todo);
   });
 });
 
