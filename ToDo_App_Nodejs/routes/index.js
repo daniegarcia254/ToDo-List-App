@@ -55,9 +55,9 @@ router.post('/todos', function(req, res, next) {
 
 
 
-/* POST --> create a new ToDo */
+/* DELETE --> Delete a ToDo */
 router.post('/todos/remove', function(req, res, next) {
-  
+
   var todo = new ToDo(req.body);
 
   todo.remove(function(err, todo){
