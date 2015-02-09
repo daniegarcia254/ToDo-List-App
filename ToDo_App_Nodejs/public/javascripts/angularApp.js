@@ -22,15 +22,16 @@
 
 	  t.getFilteredToDos = function(tag, query, cb) {
 		  return $http.get(API_URI+"/"+tag+"/"+query).success(function (data) {
-			  console.log(data);
 			  angular.copy(data, t.todos);
 			  angular.copy(data, $rootScope.toDos);
 		  });
 	  };
 
 	  t.removeToDo = function(todo, cb) {
-		  return $http.delete(API_URI, todo).success(function(data, cb){
+		  return $http.post(API_URI+"/remove", todo).success(function(data, cb){
 			  t.getAll();
+		  }).error(function(error){
+			  console.log(error);
 		  });
 	  };
 
@@ -162,17 +163,16 @@
 	});
 	
 	//Removes a single ToDo identified by its [id]
-	$scope.deleteToDo = function(id) {
-		//alert(id);
-		$http.delete(API_URI+'/remove/'+id)
+	$scope.deleteToDo = function(todo) {
+		/*$http.delete(API_URI)
 			.success(function(data, status, headers, config) {
 				$rootScope.toDos = data;
 				$rootScope.errorMessage = "";
-			})
-			.error(function(data, status, headers, config) {
-				$rootScope.toDos = [];
-				$rootScope.errorMessage = "Error deleting the ToDo with id = "+id;
-			});
+			});*/
+
+		ToDosService.removeToDo(todo, function(){
+			$rootScope.toDos = ToDosService.todos;
+		});
 	};
   }]);
   

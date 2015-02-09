@@ -53,6 +53,21 @@ router.post('/todos', function(req, res, next) {
   });
 });
 
+
+
+/* POST --> create a new ToDo */
+router.post('/todos/remove', function(req, res, next) {
+  
+  var todo = new ToDo(req.body);
+
+  todo.remove(function(err, todo){
+    if(err){return err; }
+
+    res.json(todo);
+  });
+});
+
+
 //GET home page
 router.get('/', function(req, res, next) {
   res.render('index');
