@@ -2,50 +2,54 @@
 	padding-bottom: 10px;
 	padding-top: 10px;
 }
-
 .buttonsPanel{
 	width: 100%;
 	text-align: center;
 }
-
 .actionButton{
 	margin-left: 20px;
 }
 
-.toDoTable{
-	margin-top: 20px;
-	float: left;
-	position: relative;
-	width: 100%;
-}
 
-
-/*ADD TODO FORM*/
-#inputAddDesc, #inputAddContext, #inputAddProject{
+/*FORMULARIES*/
+#inputAddDesc, #inputAddContext, #inputAddProject, #inputSearchQuery{
 	width: 50%;
 	margin-left: 25%;
 }
-#inputAddPriority{
+#selectSearchField{
+	width: 15%;
+	margin-left: 25%;
+}
+#inputAddPriority, #inputSearchPriority{
 	width: 10%;
 	margin-left: 25%;
 }
 #labelAddDesc{
 	margin-right: 39.5%;
 }
-#labelAddContext{
+#labelAddContext, #labelSearchQuery{
 	margin-right: 41.5%;
 }
 #labelAddProject{
 	margin-right: 42%;
 }
+#labelSearchField{
+	margin-right: 43%;
+}
 #labelAddPriority{
 	margin-right: 41.5%;
 }
-#closeAddFormButton{
+#closeAddFormButton, #closeSearchFormButton{
 	margin-left: 20px;
 }
 
-
+/*TODO's TABLE*/
+.toDoTable{
+	margin-top: 20px;
+	float: left;
+	position: relative;
+	width: 100%;
+}
 th#taskCol{
 	min-width: 300px;
 	max-width: 300px;
@@ -58,12 +62,10 @@ th#idCol, #priorityCol{
 	min-width: 50px;
 	max-width: 50px;
 }
-
 #errorSpan{
 	font-weight: bold;
 	color: red;
 }
-
 .deleteImg{
 	width: 20px;
 	height: 20px;
