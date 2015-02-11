@@ -211,6 +211,7 @@
 	  }
 
 	  $scope.selectors = fields;
+	  //Function for remove in the DB the ToDo's that match the user input query
 	  $scope.removeToDos = function() {
 		  var query_bis = $scope.query;
 		  $http.delete(API_URI+'/remove/'+$scope.selector.tag+'/'+$scope.query)
@@ -251,8 +252,7 @@
 					  $rootScope.hideInputRemovePriority = false;
 				  }, 500);
 			  }
-		  }
-		  ;
+		  };
 	  };
   });
 
