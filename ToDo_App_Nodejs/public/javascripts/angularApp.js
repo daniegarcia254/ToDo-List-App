@@ -167,15 +167,8 @@
 	   };
   });
 
-  //Controller for the "List All ToDo's" form
-   app.controller('listAllFormCtrl', ['$scope', '$rootScope', '$http', 'ToDosService', function($scope, $rootScope, $http, ToDosService){
-	$scope.listAll = function() {
-		ToDosService.getAll(null, null, null);
-	};
-  }]);
-
   //Controller for the "Remove ToDo's" form
-   app.controller('removeToDosFormCtrl', ['$scope', '$rootScope', '$http', 'ToDosService', function($scope, $rootScope, $http, ToDosService){
+  app.controller('removeToDosFormCtrl', ['$scope', '$rootScope', '$http', 'ToDosService', function($scope, $rootScope, $http, ToDosService){
     $scope.selectors = fields;
 	$scope.removeToDos = function() {
 		var query_bis = $scope.query;
