@@ -109,30 +109,32 @@
   //Controller for the "Search ToDo's" form
    app.controller('searchToDosFormCtrl', function($scope, $rootScope, $http, ToDosService, $timeout){
 
+	   //Initiate the form search input as text type
 	   if (typeof $scope.selector === 'undefined') {
 		   $rootScope.hideInputSearchPriority = $rootScope.showInputSearch = true;
 	   }
 
 	   $scope.selectors = fields;
 
-	   $scope.listToDos = function() {
-		var query_bis = $scope.query;
-		/*$http.get(API_URI+'/list/'+$scope.selector.tag+'/'+$scope.query)
-			.success(function(data, status, headers, config) {
-				$rootScope.toDos = data;
-				$rootScope.errorMessage = "";
-			})
-			.error(function(data, status, headers, config) {
-				$rootScope.toDos = [];
-				$rootScope.errorMessage = "Not ToDo's matches found with \"" + $scope.selector.tag + "= " + query_bis + "\"";
-			});*/
+	   //Function for search in the DB the ToDo's that match the user input query
+	   $scope.searchToDos = function() {
+			var query_bis = $scope.query;
+			/*$http.get(API_URI+'/list/'+$scope.selector.tag+'/'+$scope.query)
+				.success(function(data, status, headers, config) {
+					$rootScope.toDos = data;
+					$rootScope.errorMessage = "";
+				})
+				.error(function(data, status, headers, config) {
+					$rootScope.toDos = [];
+					$rootScope.errorMessage = "Not ToDo's matches found with \"" + $scope.selector.tag + "= " + query_bis + "\"";
+				});*/
 
-		ToDosService.getFilteredToDos($scope.selector.tag, $scope.query, function(){
-			$rootScope.toDos = ToDosService.todos;
-		});
+			ToDosService.getFilteredToDos($scope.selector.tag, $scope.query, function(){
+				$rootScope.toDos = ToDosService.todos;
+			});
 
-		$scope.query = "";
-	};
+			$scope.query = "";
+	   };
 
 	   $rootScope.submitDisabled = true;
 	   //Function that handles if the submit button is enabled
@@ -144,6 +146,7 @@
 		   }
 	   };
 
+	   //Function that handles the formulary input element change of type
 	   $scope.checkSearchInputType = function() {
 		   if (typeof $scope.selector === 'undefined') {
 			   $rootScope.hideInputSearchPriority = $rootScope.showInputSearch = true;
