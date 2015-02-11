@@ -114,7 +114,7 @@
 		//Function for add to the DB a new ToDo
 		$scope.addToDo = function() {
 			var todo=$scope.fields;	//Take the form fields
-			$scope.fields = "";  //Clear the form
+			$scope.fields = "";   //Clear the form
 
 			ToDosService.create(todo, function(){
 				$rootScope.toDos = ToDosService.todos;
@@ -156,6 +156,7 @@
 			});
 
 			$scope.query = "";
+		    $scope.checkEnableSearchFormSubmitButton();
 	   };
 
 	   $rootScope.submitSearchDisabled = true;
@@ -217,6 +218,7 @@
 				  $rootScope.errorMessage = "Not ToDo's matches found with \"" + $scope.selector.tag + "= " + query_bis + "\"";
 			  });
 		  $scope.query = "";
+		  $scope.checkEnableRemoveFormSubmitButton();
 	  };
 
 	  $rootScope.submitRemoveDisabled = true;
