@@ -1,0 +1,26 @@
+<div class="panel-footer">
+    <form role="form" name="addToDoForm" ng-submit="addToDo()" ng-controller="addToDoFormCtrl">
+        <div class="form-group">
+            <label id="labelAddDesc" for="inputDescription">Task Description:</label>
+            <input id="inputAddDesc" type="text" class="form-control" id="inputDescription" placeholder="Description"
+                   ng-model="fields.task" required>
+        </div>
+        <div class="form-group">
+            <label id="labelAddContext" for="inputContext">Task Context:</label>
+            <input id="inputAddContext" type="text" class="form-control" id="inputContext" placeholder="Context" required
+                   ng-model="fields.context">
+        </div>
+        <div class="form-group">
+            <label id="labelAddProject" for="inputProject">Task Project:</label>
+            <input id="inputAddProject" type="text" class="form-control" id="inputProject" placeholder="Project" required
+                   ng-model="fields.project">
+        </div>
+        <div class="form-group">
+            <label id="labelAddPriority" for="inputPriority">Task Priority:</label>
+            <input id="inputAddPriority" type="number" min="1" max="10" class="form-control" id="inputPriority" placeholder="Priority" required
+                   ng-model="fields.priority">
+        </div>
+        <button type="submit" class="btn btn-primary" id="formButton">Add ToDo</button>
+        <button type="button" ng-click="closeAddToDoForm()" class="btn btn-danger" id="closeAddFormButton">Close</button>
+    </form>
+</div>

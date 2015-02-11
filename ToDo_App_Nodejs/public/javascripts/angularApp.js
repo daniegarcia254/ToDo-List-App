@@ -184,9 +184,17 @@
   app.directive('todosTable', function() {
     return {
       restrict: 'E',
-      templateUrl: '/angular_directives/toDo-table.html'
+      templateUrl: '/angular_directives/toDo_table.html'
     };
   });
+
+	//Directive for show ToDo formulary
+	app.directive('todoAddForm', function() {
+		return {
+			restrict: 'E',
+			templateUrl: '/angular_directives/toDo_add_form.html'
+		};
+	});
   
   
   
