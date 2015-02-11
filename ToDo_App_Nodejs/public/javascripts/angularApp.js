@@ -1,5 +1,5 @@
 (function() {
-  var app = angular.module('toDoApp', []);
+  var app = angular.module('toDoApp', ['ngAnimate']);
 
   var API_URI = "http://localhost:3000/todos";	//REST endpoint URI
   
@@ -52,7 +52,15 @@
   app.controller('HomeCtrl', function($scope){
     $scope.tabs = actions;
   });
-  
+
+	app.controller('ToDoAddFormCtrl', function($scope, $rootScope){
+		$rootScope.addTodoFormShow = false;
+
+		$scope.closeAddToDoForm = function(){
+			$rootScope.addTodoFormShow = !$rootScope.addTodoFormShow;
+		}
+	});
+
   //Controller for navigation tabs
   app.controller('tabCtrl', ['$scope', '$rootScope', 'ToDosService', function($scope, $rootScope, ToDosService){
 

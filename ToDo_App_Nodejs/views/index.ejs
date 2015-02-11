@@ -48,9 +48,14 @@
 					<div class="panel panel-info buttonsPanel">
 						<div class="panel-heading">Actions for managing your ToDo's</div>
 						<div class="panel-body">
-							<button type="button" class="btn btn-success actionButton">Add ToDo</button>
+							<button type="button" id="addToDoButton" ng-click="addTodoFormShow=!addTodoFormShow"
+									class="btn btn-success actionButton">Add ToDo</button>
 							<button type="button" class="btn btn-primary actionButton">List All ToDo's</button>
 							<button type="button" class="btn btn-danger actionButton">Remove ToDo's</button>
+						</div>
+						<div ng-controller="ToDoAddFormCtrl" ng-show="addTodoFormShow" class="fadein fadeout">
+							<todo-add-form>
+							</todo-add-form>
 						</div>
 					</div>
 					<todos-table></todos-table>
@@ -62,8 +67,10 @@
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-animate.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/javascripts/bootstrap.min.js"></script>
     <script src="/javascripts/angularApp.js"></script>
+
   </body>
 </html>
