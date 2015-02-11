@@ -63,6 +63,9 @@ th#idCol, #priorityCol{
 	min-width: 50px;
 	max-width: 50px;
 }
+td.priority{
+	text-align: center;
+}
 #errorSpan{
 	font-weight: bold;
 	color: red;
