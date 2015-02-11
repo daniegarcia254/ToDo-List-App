@@ -94,17 +94,17 @@
 		};
 	});
 
-  //Controller for the "Add ToDo" form
-  app.controller('addToDoFormCtrl', ['$scope', '$rootScope', '$http', 'ToDosService', function($scope, $rootScope, $http, ToDosService){
-	$scope.addToDo = function() {
-		var todo=$scope.fields;	//Take the form fields
-		$scope.fields = "";  //Clear the form
+	//Controller for the "Add ToDo" form
+	app.controller('addToDoFormCtrl', ['$scope', '$rootScope', '$http', 'ToDosService', function($scope, $rootScope, $http, ToDosService){
+		$scope.addToDo = function() {
+			var todo=$scope.fields;	//Take the form fields
+			// $scope.fields = "";  //Clear the form
 
-		ToDosService.create(todo, function(){
-			$rootScope.toDos = ToDosService.todos;
-		});
-	};
-  }]);
+			ToDosService.create(todo, function(){
+				$rootScope.toDos = ToDosService.todos;
+			});
+		};
+	}]);
 
   //Controller for the "Search ToDo's" form
    app.controller('searchToDosFormCtrl', function($scope, $rootScope, $http, ToDosService, $timeout){
