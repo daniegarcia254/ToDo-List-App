@@ -134,13 +134,15 @@
 		$scope.query = "";
 	};
 
-	$scope.checkEnableButton = function(){
-		if (typeof $scope.selector == 'undefined') {
-			return true;
-		} else {
-			return !(typeof $scope.query != 'undefined' && $scope.query.length > 0);
-		}
-	};
+	   $rootScope.submitDisabled = true;
+	   //Function that handles if the submit button is enabled
+	   $scope.checkEnableSubmitButton = function(element){
+		   if (typeof $scope.selector == 'undefined') {
+			   $rootScope.submitDisabled = true;
+		   } else {
+			   $rootScope.submitDisabled =  !(typeof $scope.query != 'undefined' && $scope.query.length > 0);
+		   }
+	   };
 
 	   $scope.checkSearchInputType = function() {
 		   if (typeof $scope.selector === 'undefined') {
