@@ -138,7 +138,7 @@
 
 	   $rootScope.submitDisabled = true;
 	   //Function that handles if the submit button is enabled
-	   $scope.checkEnableSubmitButton = function(element){
+	   $scope.checkEnableSearchFormSubmitButton = function(element){
 		   if (typeof $scope.selector == 'undefined') {
 			   $rootScope.submitDisabled = true;
 		   } else {
