@@ -63,6 +63,17 @@
 			}
 		};
 
+		$scope.showHideSearchForm = function(){
+			if ($rootScope.addTodoFormShow) {
+				$rootScope.addTodoFormShow=!$rootScope.addTodoFormShow;
+				$timeout(function(){
+					$rootScope.searchTodoFormShow = !$rootScope.searchTodoFormShow;
+				},1000);
+			} else {
+				$rootScope.searchTodoFormShow = !$rootScope.searchTodoFormShow;
+			}
+		};
+
 	});
 
 	//Controller for show & hide the "Add ToDo" form
@@ -74,21 +85,14 @@
 		};
 	});
 
-  //Controller for navigation tabs
-  app.controller('tabCtrl', ['$scope', '$rootScope', 'ToDosService', function($scope, $rootScope, ToDosService){
+	//Controller for show & hide the "Search ToDo's"
+	app.controller('ToDoSearchFormCtrl', function($scope, $rootScope){
+		$rootScope.searchTodoFormShow = false;
 
-	$rootScope.toDos = ToDosService.todos;
-
-	$scope.getToDoList = function(tabName){
-
-		ToDosService.getAll(null, null, null);
-
-		$rootScope.errorMessage = "";
-		if (tabName == 'add') $rootScope.hideValue = "true";
-		else if (tabName == 'list') $rootScope.hideValue = "true";
-		else if (tabName = 'remove') $rootScope.hideValue = "false";
-	};
-  }]);
+		$scope.closeSearchToDoForm = function(){
+			$rootScope.searchTodoFormShow = !$rootScope.searchTodoFormShow;
+		};
+	});
 
   //Controller for the "Add ToDo" form
   app.controller('addToDoFormCtrl', ['$scope', '$rootScope', '$http', 'ToDosService', function($scope, $rootScope, $http, ToDosService){
@@ -102,10 +106,16 @@
 	};
   }]);
 
-  //Controller for the "List ToDo's" form
-   app.controller('listToDosFormCtrl', ['$scope', '$rootScope', '$http', 'ToDosService', function($scope, $rootScope, $http, ToDosService){
-    $scope.selectors = fields;
-	$scope.listToDos = function() {
+  //Controller for the "Search ToDo's" form
+   app.controller('searchToDosFormCtrl', function($scope, $rootScope, $http, ToDosService, $timeout){
+
+	   if (typeof $scope.selector === 'undefined') {
+		   $rootScope.hideInputSearchPriority = $rootScope.showInputSearch = true;
+	   }
+
+	   $scope.selectors = fields;
+
+	   $scope.listToDos = function() {
 		var query_bis = $scope.query;
 		/*$http.get(API_URI+'/list/'+$scope.selector.tag+'/'+$scope.query)
 			.success(function(data, status, headers, config) {
@@ -124,10 +134,6 @@
 		$scope.query = "";
 	};
 
-	$scope.numberOrText = function(){
-		console.log($scope.selector);
-	};
-
 	$scope.checkEnableButton = function(){
 		if (typeof $scope.selector == 'undefined') {
 			return true;
@@ -135,7 +141,26 @@
 			return !(typeof $scope.query != 'undefined' && $scope.query.length > 0);
 		}
 	};
-  }]);
+
+	   $scope.checkSearchInputType = function() {
+		   if (typeof $scope.selector === 'undefined') {
+			   $rootScope.hideInputSearchPriority = $rootScope.showInputSearch = true;
+		   } else {
+			   if ($scope.selector.tag != 'priority') {
+				   $rootScope.hideInputSearchPriority = true;
+				   $timeout(function () {
+					   $rootScope.showInputSearch = true;
+				   }, 500);
+			   } else {
+				   $rootScope.showInputSearch = false;
+				   $timeout(function () {
+					   $rootScope.hideInputSearchPriority = false;
+				   }, 500);
+			   }
+		   }
+		   ;
+	   };
+  });
 
   //Controller for the "List All ToDo's" form
    app.controller('listAllFormCtrl', ['$scope', '$rootScope', '$http', 'ToDosService', function($scope, $rootScope, $http, ToDosService){
@@ -209,7 +234,7 @@
     };
   });
 
-	//Directive for show ToDo formulary
+	//Directive for show the add ToDo formulary
 	app.directive('todoAddForm', function() {
 		return {
 			restrict: 'E',
@@ -222,6 +247,14 @@
 		return {
 			restrict: 'E',
 			templateUrl: '/angular_directives/toDo_search_form.html'
+		};
+	});
+
+	//Directive for show the remove ToDo's formulary
+	app.directive('todoRemoveForm', function() {
+		return {
+			restrict: 'E',
+			templateUrl: '/angular_directives/toDo_remove_form.html'
 		};
 	});
   
