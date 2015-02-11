@@ -15,15 +15,13 @@
 
 	  t.getAll = function() {
 		  return $http.get(API_URI).success(function (data) {
-				angular.copy(data, t.todos);
-				angular.copy(data, $rootScope.toDos);
+				$rootScope.toDos = data;
 		  });
 	  };
 
 	  t.getFilteredToDos = function(tag, query, cb) {
 		  return $http.get(API_URI+"/"+tag+"/"+query).success(function (data) {
-			  angular.copy(data, t.todos);
-			  angular.copy(data, $rootScope.toDos);
+			  $rootScope.toDos = data;
 		  });
 	  };
 
@@ -48,6 +46,13 @@
   /*-----------------------------------
 	CONTROLLERS
   -------------------------------------*/
+
+	//Main controller
+	app.controller('MainCtrl', function($document, ToDosService, $rootScope){
+		$document.ready(function(){
+			ToDosService.getAll();
+		});
+	});
 
 	//Controller for the action buttons
 	app.controller('ActionButtonsCtrl', function($scope, $rootScope, $timeout){
