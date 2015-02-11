@@ -19,6 +19,33 @@
 	width: 100%;
 }
 
+
+/*ADD TODO FORM*/
+#inputAddDesc, #inputAddContext, #inputAddProject{
+	width: 50%;
+	margin-left: 25%;
+}
+#inputAddPriority{
+	width: 10%;
+	margin-left: 25%;
+}
+#labelAddDesc{
+	margin-right: 39.5%;
+}
+#labelAddContext{
+	margin-right: 41.5%;
+}
+#labelAddProject{
+	margin-right: 42%;
+}
+#labelAddPriority{
+	margin-right: 41.5%;
+}
+#closeAddFormButton{
+	margin-left: 20px;
+}
+
+
 th#taskCol{
 	min-width: 300px;
 	max-width: 300px;
