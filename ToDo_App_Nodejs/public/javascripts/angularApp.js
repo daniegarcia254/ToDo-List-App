@@ -48,17 +48,30 @@
   /*-----------------------------------
 	CONTROLLERS
   -------------------------------------*/
-  //Controller for the navigation bar
-  app.controller('HomeCtrl', function($scope){
-    $scope.tabs = actions;
-  });
 
+	//Controller for the action buttons
+	app.controller('ActionButtonsCtrl', function($scope, $rootScope, $timeout){
+
+		$scope.showHideAddForm = function(){
+			if ($rootScope.searchTodoFormShow) {
+				$rootScope.searchTodoFormShow=!$rootScope.searchTodoFormShow;
+				$timeout(function(){
+					$rootScope.addTodoFormShow = !$rootScope.addTodoFormShow;
+				},1000);
+			} else {
+				$rootScope.addTodoFormShow = !$rootScope.addTodoFormShow;
+			}
+		};
+
+	});
+
+	//Controller for show & hide the "Add ToDo" form
 	app.controller('ToDoAddFormCtrl', function($scope, $rootScope){
 		$rootScope.addTodoFormShow = false;
 
 		$scope.closeAddToDoForm = function(){
 			$rootScope.addTodoFormShow = !$rootScope.addTodoFormShow;
-		}
+		};
 	});
 
   //Controller for navigation tabs
@@ -201,6 +214,14 @@
 		return {
 			restrict: 'E',
 			templateUrl: '/angular_directives/toDo_add_form.html'
+		};
+	});
+
+	//Directive for show the search ToDo's formulary
+	app.directive('todoSearchForm', function() {
+		return {
+			restrict: 'E',
+			templateUrl: '/angular_directives/toDo_search_form.html'
 		};
 	});
   
