@@ -1,0 +1,20 @@
+<div class="panel-footer">
+    <form role="form" name="removeToDoForm" ng-submit="removeToDos()" ng-controller="removeToDosFormCtrl" novalidate="">
+        <div class="form-group">
+            <label id="labelRemoveField"  for="selectRemoveField">ToDo field:</label><br>
+            <select id="selectRemoveField" class="form-control"
+                    ng-change="checkRemoveInputType(); checkEnableRemoveFormSubmitButton();"
+                    ng-model="selector" ng-options="s.name for s in selectors" required>
+            </select>
+        </div>
+        <div class="form-group">
+            <label id="labelRemoveQuery" for="inputRemoveQuery">Text to match:</label>
+            <input type="text" class="form-control" id="inputRemoveQuery" placeholder="Text"
+                   ng-change="checkEnableRemoveFormSubmitButton()" ng-model="query" ng-show="showInputRemove" required>
+            <input type="number" min="1" max="10" class="form-control" id="inputRemovePriority" placeholder="Priority"
+                   ng-change="checkEnableRemoveFormSubmitButton()" ng-model="query" ng-hide="hideInputRemovePriority" required>
+        </div>
+        <button type="submit" class="btn btn-primary" id="formButton" ng-disabled="submitRemoveDisabled">Remove</button>
+        <button type="button" ng-click="closeRemoveToDoForm()" class="btn btn-danger" id="closeFormButton">Close</button>
+    </form>
+</div>

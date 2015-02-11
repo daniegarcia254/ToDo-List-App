@@ -58,6 +58,11 @@
 				$timeout(function(){
 					$rootScope.addTodoFormShow = !$rootScope.addTodoFormShow;
 				},1000);
+			} else if ($rootScope.removeTodoFormShow){
+				$rootScope.removeTodoFormShow=!$rootScope.removeTodoFormShow;
+				$timeout(function(){
+					$rootScope.addTodoFormShow = !$rootScope.addTodoFormShow;
+				},1000);
 			} else {
 				$rootScope.addTodoFormShow = !$rootScope.addTodoFormShow;
 			}
@@ -69,8 +74,29 @@
 				$timeout(function(){
 					$rootScope.searchTodoFormShow = !$rootScope.searchTodoFormShow;
 				},1000);
+			} else if ($rootScope.removeTodoFormShow){
+				$rootScope.removeTodoFormShow=!$rootScope.removeTodoFormShow;
+				$timeout(function(){
+					$rootScope.searchTodoFormShow = !$rootScope.searchTodoFormShow;
+				},1000);
 			} else {
 				$rootScope.searchTodoFormShow = !$rootScope.searchTodoFormShow;
+			}
+		};
+
+		$scope.showHideRemoveForm = function(){
+			if ($rootScope.searchTodoFormShow) {
+				$rootScope.searchTodoFormShow=!$rootScope.searchTodoFormShow;
+				$timeout(function(){
+					$rootScope.removeTodoFormShow = !$rootScope.removeTodoFormShow;
+				},1000);
+			} else if ($rootScope.addTodoFormShow){
+				$rootScope.addTodoFormShow=!$rootScope.addTodoFormShow;
+				$timeout(function(){
+					$rootScope.removeTodoFormShow = !$rootScope.removeTodoFormShow;
+				},1000);
+			} else {
+				$rootScope.removeTodoFormShow = !$rootScope.removeTodoFormShow;
 			}
 		};
 
@@ -91,6 +117,15 @@
 
 		$scope.closeSearchToDoForm = function(){
 			$rootScope.searchTodoFormShow = !$rootScope.searchTodoFormShow;
+		};
+	});
+
+	//Controller for show & hide the "Remove ToDo's" form
+	app.controller('ToDoRemoveFormCtrl', function($scope, $rootScope){
+		$rootScope.removeTodoFormShow = false;
+
+		$scope.closeRemoveToDoForm = function(){
+			$rootScope.removeTodoFormShow = !$rootScope.removeTodoFormShow;
 		};
 	});
 
@@ -168,22 +203,58 @@
   });
 
   //Controller for the "Remove ToDo's" form
-  app.controller('removeToDosFormCtrl', ['$scope', '$rootScope', '$http', 'ToDosService', function($scope, $rootScope, $http, ToDosService){
-    $scope.selectors = fields;
-	$scope.removeToDos = function() {
-		var query_bis = $scope.query;
-		$http.delete(API_URI+'/remove/'+$scope.selector.tag+'/'+$scope.query)
-			.success(function(data, status, headers, config) {
-				$rootScope.toDos = data;
-				$rootScope.errorMessage = "";
-			})
-			.error(function(data, status, headers, config) {
-				$rootScope.toDos = [];
-				$rootScope.errorMessage = "Not ToDo's matches found with \"" + $scope.selector.tag + "= " + query_bis + "\"";
-			});
-		$scope.query = "";
-	};
-  }]);
+  app.controller('removeToDosFormCtrl', function($scope, $rootScope, $http, ToDosService, $timeout){
+
+	  //Initiate the form remove input as text type
+	  if (typeof $scope.selector === 'undefined') {
+		  $rootScope.hideInputRemovePriority = $rootScope.showInputRemove = true;
+	  }
+
+	  $scope.selectors = fields;
+	  $scope.removeToDos = function() {
+		  var query_bis = $scope.query;
+		  $http.delete(API_URI+'/remove/'+$scope.selector.tag+'/'+$scope.query)
+			  .success(function(data, status, headers, config) {
+				  $rootScope.toDos = data;
+				  $rootScope.errorMessage = "";
+			  })
+			  .error(function(data, status, headers, config) {
+				  $rootScope.toDos = [];
+				  $rootScope.errorMessage = "Not ToDo's matches found with \"" + $scope.selector.tag + "= " + query_bis + "\"";
+			  });
+		  $scope.query = "";
+	  };
+
+	  $rootScope.submitRemoveDisabled = true;
+	  //Function that handles if the submit button is enabled
+	  $scope.checkEnableRemoveFormSubmitButton = function(element){
+		  if (typeof $scope.selector == 'undefined') {
+			  $rootScope.submitRemoveDisabled = true;
+		  } else {
+			  $rootScope.submitRemoveDisabled =  !(typeof $scope.query != 'undefined' && $scope.query.length > 0);
+		  }
+	  };
+
+	  //Function that handles the formulary input element change of type
+	  $scope.checkRemoveInputType = function() {
+		  if (typeof $scope.selector === 'undefined') {
+			  $rootScope.hideInputRemovePriority = $rootScope.showInputRemove = true;
+		  } else {
+			  if ($scope.selector.tag != 'priority') {
+				  $rootScope.hideInputRemovePriority = true;
+				  $timeout(function () {
+					  $rootScope.showInputRemove = true;
+				  }, 500);
+			  } else {
+				  $rootScope.showInputRemove = false;
+				  $timeout(function () {
+					  $rootScope.hideInputRemovePriority = false;
+				  }, 500);
+			  }
+		  }
+		  ;
+	  };
+  });
 
   //Controller for the "Remove All ToDo's" form
    app.controller('removeAllFormCtrl', ['$scope', '$rootScope', '$http', 'ToDosService', function($scope, $rootScope, $http, ToDosService){

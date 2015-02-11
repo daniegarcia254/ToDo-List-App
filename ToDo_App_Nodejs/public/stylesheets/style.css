@@ -12,28 +12,29 @@
 
 
 /*FORMULARIES*/
-#inputAddDesc, #inputAddContext, #inputAddProject, #inputSearchQuery{
+#inputAddDesc, #inputAddContext, #inputAddProject,
+#inputSearchQuery, #inputRemoveQuery{
 	width: 50%;
 	margin-left: 25%;
 }
-#selectSearchField{
+#selectSearchField, #selectRemoveField{
 	width: 15%;
 	margin-left: 25%;
 }
-#inputAddPriority, #inputSearchPriority{
+#inputAddPriority, #inputSearchPriority, #inputRemovePriority{
 	width: 10%;
 	margin-left: 25%;
 }
 #labelAddDesc{
 	margin-right: 39.5%;
 }
-#labelAddContext, #labelSearchQuery{
+#labelAddContext, #labelSearchQuery, #labelRemoveQuery{
 	margin-right: 41.5%;
 }
 #labelAddProject{
 	margin-right: 42%;
 }
-#labelSearchField{
+#labelSearchField, #labelRemoveField{
 	margin-right: 43%;
 }
 #labelAddPriority{
