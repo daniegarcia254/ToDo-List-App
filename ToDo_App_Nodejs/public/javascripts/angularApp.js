@@ -102,47 +102,34 @@
 
 	});
 
-	//Controller for show & hide the "Add ToDo" form
-	app.controller('ToDoAddFormCtrl', function($scope, $rootScope){
-		$rootScope.addTodoFormShow = false;
+	//Controller for the "Add ToDo" form
+	app.controller('addToDoFormCtrl', function($scope, $rootScope, $http, ToDosService){
 
+		//Show & hide the form
+		$rootScope.addTodoFormShow = false;
 		$scope.closeAddToDoForm = function(){
 			$rootScope.addTodoFormShow = !$rootScope.addTodoFormShow;
 		};
-	});
 
-	//Controller for show & hide the "Search ToDo's" form
-	app.controller('ToDoSearchFormCtrl', function($scope, $rootScope){
-		$rootScope.searchTodoFormShow = false;
-
-		$scope.closeSearchToDoForm = function(){
-			$rootScope.searchTodoFormShow = !$rootScope.searchTodoFormShow;
-		};
-	});
-
-	//Controller for show & hide the "Remove ToDo's" form
-	app.controller('ToDoRemoveFormCtrl', function($scope, $rootScope){
-		$rootScope.removeTodoFormShow = false;
-
-		$scope.closeRemoveToDoForm = function(){
-			$rootScope.removeTodoFormShow = !$rootScope.removeTodoFormShow;
-		};
-	});
-
-	//Controller for the "Add ToDo" form
-	app.controller('addToDoFormCtrl', ['$scope', '$rootScope', '$http', 'ToDosService', function($scope, $rootScope, $http, ToDosService){
+		//Function for add to the DB a new ToDo
 		$scope.addToDo = function() {
 			var todo=$scope.fields;	//Take the form fields
-			// $scope.fields = "";  //Clear the form
+			$scope.fields = "";  //Clear the form
 
 			ToDosService.create(todo, function(){
 				$rootScope.toDos = ToDosService.todos;
 			});
 		};
-	}]);
+	});
 
   //Controller for the "Search ToDo's" form
    app.controller('searchToDosFormCtrl', function($scope, $rootScope, $http, ToDosService, $timeout){
+
+	   //Show & hide the form
+	   $rootScope.searchTodoFormShow = false;
+	   $scope.closeSearchToDoForm = function(){
+		   $rootScope.searchTodoFormShow = !$rootScope.searchTodoFormShow;
+	   };
 
 	   //Initiate the form search input as text type
 	   if (typeof $scope.selector === 'undefined') {
@@ -204,6 +191,12 @@
 
   //Controller for the "Remove ToDo's" form
   app.controller('removeToDosFormCtrl', function($scope, $rootScope, $http, ToDosService, $timeout){
+
+	  //Show & hide the form
+	  $rootScope.removeTodoFormShow = false;
+	  $scope.closeRemoveToDoForm = function(){
+		  $rootScope.removeTodoFormShow = !$rootScope.removeTodoFormShow;
+	  };
 
 	  //Initiate the form remove input as text type
 	  if (typeof $scope.selector === 'undefined') {
