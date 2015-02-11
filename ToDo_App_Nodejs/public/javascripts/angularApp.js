@@ -85,7 +85,7 @@
 		};
 	});
 
-	//Controller for show & hide the "Search ToDo's"
+	//Controller for show & hide the "Search ToDo's" form
 	app.controller('ToDoSearchFormCtrl', function($scope, $rootScope){
 		$rootScope.searchTodoFormShow = false;
 
