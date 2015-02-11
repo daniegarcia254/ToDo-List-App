@@ -136,13 +136,13 @@
 			$scope.query = "";
 	   };
 
-	   $rootScope.submitDisabled = true;
+	   $rootScope.submitSearchDisabled = true;
 	   //Function that handles if the submit button is enabled
 	   $scope.checkEnableSearchFormSubmitButton = function(element){
 		   if (typeof $scope.selector == 'undefined') {
-			   $rootScope.submitDisabled = true;
+			   $rootScope.submitSearchDisabled = true;
 		   } else {
-			   $rootScope.submitDisabled =  !(typeof $scope.query != 'undefined' && $scope.query.length > 0);
+			   $rootScope.submitSearchDisabled =  !(typeof $scope.query != 'undefined' && $scope.query.length > 0);
 		   }
 	   };
 
