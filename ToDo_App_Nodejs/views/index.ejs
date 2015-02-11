@@ -30,15 +30,15 @@
 							<button type="button" id="removeToDosButton" ng-click="showHideRemoveForm()"
 									class="btn btn-danger actionButton">Remove ToDo's</button>
 						</div>
-						<div ng-controller="ToDoAddFormCtrl" ng-show="addTodoFormShow" class="fadein fadeout">
+						<div ng-controller="addToDoFormCtrl" ng-show="addTodoFormShow" class="fadein fadeout">
 							<todo-add-form>
 							</todo-add-form>
 						</div>
-						<div ng-controller="ToDoSearchFormCtrl" ng-show="searchTodoFormShow" class="fadein fadeout">
+						<div ng-controller="searchToDosFormCtrl" ng-show="searchTodoFormShow" class="fadein fadeout">
 							<todo-search-form>
 							</todo-search-form>
 						</div>
-						<div ng-controller="ToDoRemoveFormCtrl" ng-show="removeTodoFormShow" class="fadein fadeout">
+						<div ng-controller="removeToDosFormCtrl" ng-show="removeTodoFormShow" class="fadein fadeout">
 							<todo-remove-form>
 							</todo-remove-form>
 						</div>
