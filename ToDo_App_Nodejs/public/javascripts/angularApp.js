@@ -124,7 +124,10 @@
 			$scope.fields = "";   //Clear the form
 
 			ToDosService.create(todo, function(){
-				$rootScope.toDos = ToDosService.todos;
+				$scope.closeAddToDoForm();
+				ToDosService.getAll(function(data){
+					$rootScope.toDos = data;
+				});
 			});
 		};
 	});
