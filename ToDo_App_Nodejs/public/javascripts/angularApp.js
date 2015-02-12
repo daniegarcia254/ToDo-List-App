@@ -55,7 +55,11 @@
 	});
 
 	//Controller for the action buttons
-	app.controller('ActionButtonsCtrl', function($scope, $rootScope, $timeout){
+	app.controller('ActionButtonsCtrl', function($scope, $rootScope, $timeout, ToDosService){
+
+		$scope.listAll = function(){
+			ToDosService.getAll();
+		};
 
 		$scope.showHideAddForm = function(){
 			if ($rootScope.searchTodoFormShow) {

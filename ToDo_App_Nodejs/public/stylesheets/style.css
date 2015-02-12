@@ -9,6 +9,12 @@
 .actionButton{
 	margin-left: 20px;
 }
+#listAllButton{
+	float: left;
+	background-color: #2aabd2;
+	font-weight: bold;
+	color: #ffffff;
+}
 
 
 /*FORMULARIES*/

@@ -23,6 +23,8 @@
 					<div class="panel panel-info buttonsPanel">
 						<div class="panel-heading">Actions for managing your ToDo's</div>
 						<div class="panel-body" ng-controller="ActionButtonsCtrl">
+							<button type="button" id="listAllButton" ng-click="listAll()"
+									class="btn btn-default actionButton">List All ToDo's</button>
 							<button type="button" id="addToDoButton" ng-click="showHideAddForm()"
 									class="btn btn-success actionButton">Add ToDo</button>
 							<button type="button" id="listToDosButton" ng-click="showHideSearchForm()"
