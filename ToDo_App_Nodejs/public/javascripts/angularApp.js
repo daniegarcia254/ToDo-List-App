@@ -13,30 +13,24 @@
 		  todos: []
 	  };
 
-	  t.getAll = function() {
-		  return $http.get(API_URI).success(function (data) {
-				$rootScope.toDos = data;
-		  });
+	  t.getAll = function(cb) {
+		  return $http.get(API_URI).success(cb);
 	  };
 
-	  t.getFilteredToDos = function(tag, query) {
-		  return $http.get(API_URI+"/"+tag+"/"+query).success(function (data) {
-			  $rootScope.toDos = data;
-		  });
+	  t.getFilteredToDos = function(tag, query, cb) {
+		  return $http.get(API_URI+"/"+tag+"/"+query).success(cb);
 	  };
 
 	  t.removeToDo = function(todo, cb) {
-		  return $http.post(API_URI+"/remove", todo).success(function(data, cb){
-			  t.getAll();
-		  }).error(function(error){
+		  return $http.post(API_URI+"/remove", todo)
+			  .success(cb)
+			  .error(function(error){
 			  console.log(error);
 		  });
 	  };
 
 	  t.create = function(todo, cb) {
-		  return $http.post(API_URI, todo).success(function(data, cb){
-			  t.getAll();
-		  });
+		  return $http.post(API_URI, todo).success(cb);
 	  };
 
 	  return t;
@@ -50,7 +44,9 @@
 	//Main controller
 	app.controller('MainCtrl', function($document, ToDosService, $rootScope){
 		$document.ready(function(){
-			ToDosService.getAll();
+			ToDosService.getAll(function(data){
+				$rootScope.toDos = data;
+			});
 		});
 	});
 
@@ -58,7 +54,9 @@
 	app.controller('ActionButtonsCtrl', function($scope, $rootScope, $timeout, ToDosService){
 
 		$scope.listAll = function(){
-			ToDosService.getAll();
+			ToDosService.getAll(function(data){
+				$rootScope.toDos = data;
+			});
 		};
 
 		$scope.showHideAddForm = function(){
@@ -195,8 +193,7 @@
 					   $rootScope.hideInputSearchPriority = false;
 				   }, 500);
 			   }
-		   }
-		   ;
+		   };
 	   };
   });
 
