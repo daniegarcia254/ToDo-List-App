@@ -291,7 +291,9 @@
 			});*/
 
 		ToDosService.removeToDo(todo, function(){
-			$rootScope.toDos = ToDosService.todos;
+			ToDosService.getAll(function(data){
+				$rootScope.toDos = data;
+			});
 		});
 	};
   }]);
