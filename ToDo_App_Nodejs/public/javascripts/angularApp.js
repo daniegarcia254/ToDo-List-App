@@ -19,7 +19,7 @@
 		  });
 	  };
 
-	  t.getFilteredToDos = function(tag, query, cb) {
+	  t.getFilteredToDos = function(tag, query) {
 		  return $http.get(API_URI+"/"+tag+"/"+query).success(function (data) {
 			  $rootScope.toDos = data;
 		  });
@@ -156,9 +156,10 @@
 					$rootScope.errorMessage = "Not ToDo's matches found with \"" + $scope.selector.tag + "= " + query_bis + "\"";
 				});*/
 
-			ToDosService.getFilteredToDos($scope.selector.tag, $scope.query, function(){
+			/*ToDosService.getFilteredToDos($scope.selector.tag, $scope.query, function(){
 				$rootScope.toDos = ToDosService.todos;
-			});
+			});*/
+		   ToDosService.getFilteredToDos($scope.selector.tag, $scope.query);
 
 			$scope.query = "";
 		    $scope.checkEnableSearchFormSubmitButton();
