@@ -15,6 +15,9 @@
 	font-weight: bold;
 	color: #ffffff;
 }
+#addToDoButton, #listToDosButton, #removeToDosButton {
+	float: right;
+}
 
 
 /*FORMULARIES*/
