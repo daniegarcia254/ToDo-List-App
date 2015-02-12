@@ -164,7 +164,14 @@
 			/*ToDosService.getFilteredToDos($scope.selector.tag, $scope.query, function(){
 				$rootScope.toDos = ToDosService.todos;
 			});*/
-		   ToDosService.getFilteredToDos($scope.selector.tag, $scope.query);
+		   ToDosService.getFilteredToDos($scope.selector.tag, $scope.query, function(data){
+			   $rootScope.toDos = data;
+			   if (data.length === 0){
+				   $rootScope.errorMessage = "Not ToDo's matches found with \"" + $scope.selector.tag + "= " + query_bis + "\"";
+			   } else {
+				   $rootScope.errorMessage = "";
+			   }
+		   });
 
 			$scope.query = "";
 		    $scope.checkEnableSearchFormSubmitButton();
