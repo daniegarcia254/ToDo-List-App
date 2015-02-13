@@ -17,8 +17,12 @@
 		  return $http.get(API_URI).success(cb);
 	  };
 
-	  t.getFilteredToDos = function(tag, query, cb) {
-		  return $http.get(API_URI+"/"+tag+"/"+query).success(cb);
+	  t.getFilteredToDos = function(query, cb) {
+		  return $http.get(API_URI+"/"+query).success(cb);
+	  };
+
+	  t.getFilteredToDosByPriority = function(priority, cb) {
+		  return $http.get(API_URI+'/priority/'+priority).success(cb);
 	  };
 
 	  t.removeToDo = function(todo, cb) {
@@ -43,6 +47,9 @@
 
 	//Main controller
 	app.controller('MainCtrl', function($document, ToDosService, $rootScope){
+
+		$rootScope.addTodoFormShow = $rootScope.removeTodoFormShow = false;
+
 		$document.ready(function(){
 			ToDosService.getAll(function(data){
 				$rootScope.toDos = data;
@@ -55,17 +62,48 @@
 
 		$scope.listAll = function(){
 			ToDosService.getAll(function(data){
+				$rootScope.errorMessage = "";
+				$scope.query = "";
 				$rootScope.toDos = data;
 			});
 		};
 
+		//Function for search in the DB the ToDo's that match the user input query
+		$scope.searchToDos = function() {
+			console.log($scope.query);
+			var query_bis = $scope.query;
+			if (query_bis.length >= 3 ) {
+				ToDosService.getFilteredToDos($scope.query, function (data) {
+					$rootScope.toDos = data;
+					if (data.length === 0) {
+						$rootScope.errorMessage = "Not ToDo's matches found with \"" + query_bis + "\" on any fields";
+					} else {
+						$rootScope.errorMessage = "";
+					}
+				})
+			} else if (query_bis.length == 0) {
+				ToDosService.getAll(function(data){
+					$rootScope.errorMessage = "";
+					$rootScope.toDos = data;
+				})
+			} else {
+				if (query_bis.length == 1 || query_bis.length == 2){
+					if (parseInt(query_bis)){
+						ToDosService.getFilteredToDosByPriority($scope.query, function (data) {
+							$rootScope.toDos = data;
+							if (data.length === 0) {
+								$rootScope.errorMessage = "Not ToDo's matches found with priority " + query_bis;
+							} else {
+								$rootScope.errorMessage = "";
+							}
+						})
+					}
+				}
+			}
+		};
+
 		$scope.showHideAddForm = function(){
-			if ($rootScope.searchTodoFormShow) {
-				$rootScope.searchTodoFormShow=!$rootScope.searchTodoFormShow;
-				$timeout(function(){
-					$rootScope.addTodoFormShow = !$rootScope.addTodoFormShow;
-				},1000);
-			} else if ($rootScope.removeTodoFormShow){
+			if ($rootScope.removeTodoFormShow){
 				$rootScope.removeTodoFormShow=!$rootScope.removeTodoFormShow;
 				$timeout(function(){
 					$rootScope.addTodoFormShow = !$rootScope.addTodoFormShow;
@@ -75,29 +113,8 @@
 			}
 		};
 
-		$scope.showHideSearchForm = function(){
-			if ($rootScope.addTodoFormShow) {
-				$rootScope.addTodoFormShow=!$rootScope.addTodoFormShow;
-				$timeout(function(){
-					$rootScope.searchTodoFormShow = !$rootScope.searchTodoFormShow;
-				},1000);
-			} else if ($rootScope.removeTodoFormShow){
-				$rootScope.removeTodoFormShow=!$rootScope.removeTodoFormShow;
-				$timeout(function(){
-					$rootScope.searchTodoFormShow = !$rootScope.searchTodoFormShow;
-				},1000);
-			} else {
-				$rootScope.searchTodoFormShow = !$rootScope.searchTodoFormShow;
-			}
-		};
-
 		$scope.showHideRemoveForm = function(){
-			if ($rootScope.searchTodoFormShow) {
-				$rootScope.searchTodoFormShow=!$rootScope.searchTodoFormShow;
-				$timeout(function(){
-					$rootScope.removeTodoFormShow = !$rootScope.removeTodoFormShow;
-				},1000);
-			} else if ($rootScope.addTodoFormShow){
+			if ($rootScope.addTodoFormShow){
 				$rootScope.addTodoFormShow=!$rootScope.addTodoFormShow;
 				$timeout(function(){
 					$rootScope.removeTodoFormShow = !$rootScope.removeTodoFormShow;
@@ -131,82 +148,6 @@
 			});
 		};
 	});
-
-  //Controller for the "Search ToDo's" form
-   app.controller('searchToDosFormCtrl', function($scope, $rootScope, $http, ToDosService, $timeout){
-
-	   //Show & hide the form
-	   $rootScope.searchTodoFormShow = false;
-	   $scope.closeSearchToDoForm = function(){
-		   $rootScope.searchTodoFormShow = !$rootScope.searchTodoFormShow;
-	   };
-
-	   //Initiate the form search input as text type
-	   if (typeof $scope.selector === 'undefined') {
-		   $rootScope.hideInputSearchPriority = $rootScope.showInputSearch = true;
-	   }
-
-	   $scope.selectors = fields;
-
-	   //Function for search in the DB the ToDo's that match the user input query
-	   $scope.searchToDos = function() {
-			var query_bis = $scope.query;
-			/*$http.get(API_URI+'/list/'+$scope.selector.tag+'/'+$scope.query)
-				.success(function(data, status, headers, config) {
-					$rootScope.toDos = data;
-					$rootScope.errorMessage = "";
-				})
-				.error(function(data, status, headers, config) {
-					$rootScope.toDos = [];
-					$rootScope.errorMessage = "Not ToDo's matches found with \"" + $scope.selector.tag + "= " + query_bis + "\"";
-				});*/
-
-			/*ToDosService.getFilteredToDos($scope.selector.tag, $scope.query, function(){
-				$rootScope.toDos = ToDosService.todos;
-			});*/
-		   ToDosService.getFilteredToDos($scope.selector.tag, $scope.query, function(data){
-			   $rootScope.toDos = data;
-			   if (data.length === 0){
-				   $rootScope.errorMessage = "Not ToDo's matches found with \"" + $scope.selector.tag + "= " + query_bis + "\"";
-			   } else {
-				   $rootScope.errorMessage = "";
-			   }
-		   });
-
-			$scope.query = undefined;
-		    $scope.checkEnableSearchFormSubmitButton();
-	   };
-
-	   $rootScope.submitSearchDisabled = true;
-	   //Function that handles if the submit button is enabled
-	   $scope.checkEnableSearchFormSubmitButton = function(){
-		   console.log(typeof $scope.query);
-		   if (typeof $scope.selector == 'undefined') {
-			   $rootScope.submitSearchDisabled = true;
-		   } else {
-			   $rootScope.submitSearchDisabled =  !(typeof $scope.query != 'undefined');
-		   }
-	   };
-
-	   //Function that handles the formulary input element change of type
-	   $scope.checkSearchInputType = function() {
-		   if (typeof $scope.selector === 'undefined') {
-			   $rootScope.hideInputSearchPriority = $rootScope.showInputSearch = true;
-		   } else {
-			   if ($scope.selector.tag != 'priority') {
-				   $rootScope.hideInputSearchPriority = true;
-				   $timeout(function () {
-					   $rootScope.showInputSearch = true;
-				   }, 500);
-			   } else {
-				   $rootScope.showInputSearch = false;
-				   $timeout(function () {
-					   $rootScope.hideInputSearchPriority = false;
-				   }, 500);
-			   }
-		   };
-	   };
-  });
 
   //Controller for the "Remove ToDo's" form
   app.controller('removeToDosFormCtrl', function($scope, $rootScope, $http, ToDosService, $timeout){

@@ -9,6 +9,8 @@
 	width: 100%;
 	text-align: center;
 }
+
+/* BUTTONS PANEL */
 .actionButton{
 	margin-left: 20px;
 }
@@ -17,9 +19,16 @@
 	background-color: #2aabd2;
 	font-weight: bold;
 	color: #ffffff;
+	margin-right: 25%;
 }
-#addToDoButton, #listToDosButton, #removeToDosButton {
+#addToDoButton, #removeToDosButton {
 	float: right;
+	font-weight: bold;
+}
+.inputSearch{
+	vertical-align: middle;
+	width: 30%;
+	float: left;
 }
 
 

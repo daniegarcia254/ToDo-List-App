@@ -14,31 +14,28 @@ router.get('/todos', function(req, res, next) {
 });
 
 /* GET the ToDos that matches [query] in the [tag] field. */
-router.get('/todos/:tag/:query', function(req, res, next) {
-
-  var cb = function (err, todos) {
-    if (err) {
-      return next(err);
-    }
-
-    res.json(todos);
-  };
+router.get('/todos/:query', function(req, res, next) {
 
   var q = req.params.query;
+  ToDo.find({$or : [{task: q}, {context: q}, {project: q}]},
+      function (err, todos) {
+        if (err) {
+          console.log(err);
+          return next(err);
+        }
+        res.json(todos);
+      });
+});
 
-  switch (req.params.tag) {
-    case 'description':
-      ToDo.find({task: q}, cb);
-      break;
-    case 'context':
-      ToDo.find({context: q}, cb);
-      break;
-    case 'project':
-      ToDo.find({project: q}, cb);
-      break;
-    case 'priority':
-      ToDo.find({priority: q}, cb);
-  }
+/* GET the ToDos that matches a given priority */
+router.get('/todos/priority/:query', function(req, res, next) {
+
+  var p = parseInt(req.params.query);
+  ToDo.find({priority: p},function(err, todos){
+    if(err){ return next(err); }
+
+    res.json(todos);
+  });
 });
 
 /* POST --> create a new ToDo */
