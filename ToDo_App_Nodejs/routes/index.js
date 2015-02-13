@@ -17,7 +17,8 @@ router.get('/todos', function(req, res, next) {
 router.get('/todos/:query', function(req, res, next) {
 
   var q = req.params.query;
-  ToDo.find({$or : [{task: q}, {context: q}, {project: q}]},
+  var regex = new RegExp(q,"i");
+  ToDo.find({$or : [{task: regex}, {context: regex}, {project: regex}]},
       function (err, todos) {
         if (err) {
           console.log(err);
