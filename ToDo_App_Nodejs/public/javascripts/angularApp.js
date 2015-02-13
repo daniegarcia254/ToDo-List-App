@@ -173,17 +173,18 @@
 			   }
 		   });
 
-			$scope.query = "";
+			$scope.query = undefined;
 		    $scope.checkEnableSearchFormSubmitButton();
 	   };
 
 	   $rootScope.submitSearchDisabled = true;
 	   //Function that handles if the submit button is enabled
-	   $scope.checkEnableSearchFormSubmitButton = function(element){
+	   $scope.checkEnableSearchFormSubmitButton = function(){
+		   console.log(typeof $scope.query);
 		   if (typeof $scope.selector == 'undefined') {
 			   $rootScope.submitSearchDisabled = true;
 		   } else {
-			   $rootScope.submitSearchDisabled =  !(typeof $scope.query != 'undefined' && $scope.query.length > 0);
+			   $rootScope.submitSearchDisabled =  !(typeof $scope.query != 'undefined');
 		   }
 	   };
 
