@@ -211,7 +211,7 @@
   });
 
   //Controller for the "Remove All ToDo's" form
-   app.controller('removeAllFormCtrl', ['$scope', '$rootScope', '$http', 'ToDosService', function($scope, $rootScope, $http, ToDosService){
+   app.controller('removeAllFormCtrl', function($scope, $rootScope, $http, ToDosService){
 	$scope.removeAll = function() {
 		$http.delete(API_URI+'/removeAll')
 			.success(function(data, status, headers, config) {
@@ -223,10 +223,10 @@
 				$rootScope.errorMessage = "Error emptying the repository!";
 			});
 	};
-  }]);
+  });
 
   //Controller for keeping updated the table with the ToDo's
-  app.controller('showResultCtrl', ['$scope', '$rootScope', '$http', 'ToDosService', function($scope, $rootScope, $http, ToDosService){
+  app.controller('showResultCtrl', function($scope, $rootScope, $http, ToDosService){
 	ToDosService.getAll(function(data) {
 		$rootScope.toDos = data;
 	});
@@ -245,7 +245,7 @@
 			});
 		});
 	};
-  }]);
+  });
   
   
   /*-----------------------------------
@@ -264,14 +264,6 @@
 		return {
 			restrict: 'E',
 			templateUrl: '/angular_directives/toDo_add_form.html'
-		};
-	});
-
-	//Directive for show the search ToDo's formulary
-	app.directive('todoSearchForm', function() {
-		return {
-			restrict: 'E',
-			templateUrl: '/angular_directives/toDo_search_form.html'
 		};
 	});
 
