@@ -2,6 +2,9 @@
 	padding-bottom: 10px;
 	padding-top: 10px;
 }
+.container{
+	padding-left: 0px;
+}
 .buttonsPanel{
 	width: 100%;
 	text-align: center;
