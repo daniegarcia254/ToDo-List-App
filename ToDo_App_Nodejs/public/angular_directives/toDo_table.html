@@ -3,7 +3,6 @@
 	<table class="table table-striped todotable">
 		<thead>
 			<tr>
-				<th>#</th>
 				<th>Task Description</th>
 				<th>Context</th>
 				<th>Project</th>
@@ -13,7 +12,6 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="todo in toDos">
-				<td ng-bind="todo.id"></td>
 				<td ng-bind="todo.task"></td>
 				<td ng-bind="todo.context"></td>
 				<td ng-bind="todo.project"></td>
