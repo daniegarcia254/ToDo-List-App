@@ -33,6 +33,14 @@
 		  });
 	  };
 
+	  t.removeToDos = function(selector, query, cb) {
+		  return $http.post(API_URI+"/removeMultiple/"+selector+"/"+query.toString())
+			  .success(cb)
+			  .error(function(error){
+				  console.log(error);
+			  });
+	  };
+
 	  t.create = function(todo, cb) {
 		  return $http.post(API_URI, todo).success(cb);
 	  };
@@ -167,17 +175,22 @@
 	  //Function for remove in the DB the ToDo's that match the user input query
 	  $scope.removeToDos = function() {
 		  var query_bis = $scope.query;
-		  $http.delete(API_URI+'/remove/'+$scope.selector.tag+'/'+$scope.query)
-			  .success(function(data, status, headers, config) {
+		  ToDosService.removeToDos($scope.selector.tag, $scope.query, function() {
+			  //Get the complete list of ToDo's after removing
+			  ToDosService.getAll(function(data){
+				  //Clear formulary and hide formulary
+				  $scope.query = "";
+				  $scope.selector =  undefined;
+				  $scope.closeRemoveToDoForm();
+				  $timeout(function(){
+					  $scope.checkRemoveInputType();
+					  $scope.checkEnableRemoveFormSubmitButton();
+				  }, 1000);
+				  //Show the data on the screen
 				  $rootScope.toDos = data;
 				  $rootScope.errorMessage = "";
-			  })
-			  .error(function(data, status, headers, config) {
-				  $rootScope.toDos = [];
-				  $rootScope.errorMessage = "Not ToDo's matches found with \"" + $scope.selector.tag + "= " + query_bis + "\"";
 			  });
-		  $scope.query = "";
-		  $scope.checkEnableRemoveFormSubmitButton();
+		  });
 	  };
 
 	  $rootScope.submitRemoveDisabled = true;
@@ -186,7 +199,7 @@
 		  if (typeof $scope.selector == 'undefined') {
 			  $rootScope.submitRemoveDisabled = true;
 		  } else {
-			  $rootScope.submitRemoveDisabled =  !(typeof $scope.query != 'undefined' && $scope.query.length > 0);
+			  $rootScope.submitRemoveDisabled =  !(typeof $scope.query != 'undefined');
 		  }
 	  };
 
@@ -208,21 +221,6 @@
 			  }
 		  };
 	  };
-  });
-
-  //Controller for the "Remove All ToDo's" form
-   app.controller('removeAllFormCtrl', function($scope, $rootScope, $http, ToDosService){
-	$scope.removeAll = function() {
-		$http.delete(API_URI+'/removeAll')
-			.success(function(data, status, headers, config) {
-				$rootScope.toDos = data;
-				$rootScope.errorMessage = "All the ToDo's have been removed from the repository!";
-			})
-			.error(function(data, status, headers, config) {
-				$rootScope.toDos = [];
-				$rootScope.errorMessage = "Error emptying the repository!";
-			});
-	};
   });
 
   //Controller for keeping updated the table with the ToDo's

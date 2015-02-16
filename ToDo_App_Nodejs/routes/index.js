@@ -65,6 +65,42 @@ router.post('/todos/remove', function(req, res, next) {
   });
 });
 
+/* DELETE --> Delete multiple ToDos that exactly match a string */
+router.post('/todos/removeMultiple/:selector/:query', function(req, res) {
+
+  var s = req.params.selector;
+  var q = req.params.query;
+
+  switch (s){
+    case 'priority':
+      q = parseInt(q);
+      ToDo.remove({priority:q},function(err, msg){
+        if (err) {return err;}
+        res.json(msg);
+      });
+      break;
+    case 'description':
+      ToDo.remove({task:q},function(err, msg){
+        if (err) {return err;}
+        res.json(msg);
+      });
+      break;
+    case 'context':
+      break;
+      ToDo.remove({context:q},function(err, msg){
+        if (err) {return err;}
+        res.json(msg);
+      });
+      break;
+    case 'project':
+      ToDo.remove({project:q},function(err, msg){
+        if (err) {return err;}
+        res.json(msg);
+      });
+      break;
+  }
+});
+
 
 //GET home page
 router.get('/', function(req, res, next) {
