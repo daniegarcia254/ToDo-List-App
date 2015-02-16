@@ -36,16 +36,14 @@
 					<div class="panel panel-info buttonsPanel">
 						<div class="panel-heading">Actions for managing your ToDo's</div>
 						<div class="panel-body" ng-controller="ActionButtonsCtrl">
-							<button type="button" id="listAllButton" ng-click="listAll()"
-									class="btn btn-default actionButton">List All ToDo's</button>
+							<button type="button" id="addToDoButton" ng-click="showHideAddForm()"
+									class="btn btn-success actionButton">Add ToDo</button>
 							<input type=search class="form-control inputSearch" results=5 name=s placeholder=Search...
 									ng-model="query" ng-change="searchToDos()">
 							<button type="button" id="removeToDosButton" ng-click="showHideRemoveForm()"
 									class="btn btn-danger actionButton"
 									data-toggle="tooltip" data-placement="top"
 									title="Remove multiple ToDo's at once!">Remove ToDo's</button>
-							<button type="button" id="addToDoButton" ng-click="showHideAddForm()"
-									class="btn btn-success actionButton">Add ToDo</button>
 						</div>
 						<div ng-controller="addToDoFormCtrl" ng-show="addTodoFormShow" class="fadein fadeout">
 							<todo-add-form>

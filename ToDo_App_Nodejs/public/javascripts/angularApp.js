@@ -68,14 +68,6 @@
 	//Controller for the action buttons
 	app.controller('ActionButtonsCtrl', function($scope, $rootScope, $timeout, ToDosService){
 
-		$scope.listAll = function(){
-			ToDosService.getAll(function(data){
-				$rootScope.errorMessage = "";
-				$scope.query = "";
-				$rootScope.toDos = data;
-			});
-		};
-
 		//Function for search in the DB the ToDo's that match the user input query
 		$scope.searchToDos = function() {
 			var query_bis = $scope.query;

@@ -14,16 +14,14 @@
 .actionButton{
 	margin-left: 20px;
 }
-#listAllButton{
+#addToDoButton {
 	float: left;
-	background-color: #2aabd2;
 	font-weight: bold;
-	color: #ffffff;
 	margin-right: 25%;
 }
-#addToDoButton, #removeToDosButton {
+#removeToDosButton{
 	float: right;
-	font-weight: bold;
+	margin-right: 20px;
 }
 .inputSearch{
 	vertical-align: middle;
