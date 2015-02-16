@@ -32,6 +32,7 @@ router.get('/todos/:query', function(req, res, next) {
 router.get('/todos/priority/:query', function(req, res, next) {
 
   var p = parseInt(req.params.query);
+
   ToDo.find({priority: p},function(err, todos){
     if(err){ return next(err); }
 
@@ -54,7 +55,7 @@ router.post('/todos', function(req, res, next) {
 
 
 /* DELETE --> Delete a ToDo */
-router.post('/todos/remove', function(req, res, next) {
+router.post('/todos/remove', function(req, res) {
 
   var todo = new ToDo(req.body);
 

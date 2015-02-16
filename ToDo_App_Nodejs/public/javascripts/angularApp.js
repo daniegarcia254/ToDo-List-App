@@ -78,7 +78,6 @@
 
 		//Function for search in the DB the ToDo's that match the user input query
 		$scope.searchToDos = function() {
-			console.log($scope.query);
 			var query_bis = $scope.query;
 			if (query_bis.length >= 3 ) {
 				ToDosService.getFilteredToDos($scope.query, function (data) {
