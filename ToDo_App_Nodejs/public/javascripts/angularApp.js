@@ -1,13 +1,13 @@
 (function() {
-  var app = angular.module('toDoApp', ['ngAnimate']);
+  	var app = angular.module('toDoApp', ['ngAnimate']);
 
-  var API_URI = "http://localhost:3000/todos";	//REST endpoint URI
+  	var API_URI = "http://localhost:3000/todos";	//REST endpoint URI
   
-  /*-----------------------------------
+  	/*-----------------------------------
 	SERVICES
   -------------------------------------*/
-  //Service to retrieve the complete ToDo list of the repository
-  app.factory('ToDosService', function($http) {
+  	//Service to retrieve the complete ToDo list of the repository
+  	app.factory('ToDosService', function($http) {
 
 	  var t = {
 		  todos: []
@@ -49,7 +49,7 @@
   });
   
   
-  /*-----------------------------------
+  	/*-----------------------------------
 	CONTROLLERS
   -------------------------------------*/
 
@@ -148,8 +148,8 @@
 		};
 	});
 
-  //Controller for the "Remove ToDo's" form
-  app.controller('removeToDosFormCtrl', function($scope, $rootScope, $http, ToDosService, $timeout){
+  	//Controller for the "Remove ToDo's" form
+  	app.controller('removeToDosFormCtrl', function($scope, $rootScope, $http, ToDosService, $timeout){
 
 	  //Show & hide the form
 	  $rootScope.removeTodoFormShow = false;
@@ -214,8 +214,8 @@
 	  };
   });
 
-  //Controller for keeping updated the table with the ToDo's
-  app.controller('showResultCtrl', function($scope, $rootScope, $http, ToDosService){
+ 	//Controller for keeping updated the table with the ToDo's
+  	app.controller('showResultCtrl', function($scope, $rootScope, $http, ToDosService){
 	ToDosService.getAll(function(data) {
 		$rootScope.toDos = data;
 	});
@@ -237,11 +237,11 @@
   });
   
   
-  /*-----------------------------------
+  	/*-----------------------------------
 	DIRECTIVES
   -------------------------------------*/
-  //Directive for show a table with ToDo's
-  app.directive('todosTable', function() {
+  	//Directive for show a table with ToDo's
+  	app.directive('todosTable', function() {
     return {
       restrict: 'E',
       templateUrl: '/angular_directives/toDo_table.html'
@@ -284,21 +284,10 @@
   
   
   
-  /*-----------------------------------
+  	/*-----------------------------------
 	VARIABLES
   -------------------------------------*/
-  var actions = [{
-		title: 'Add ToDo',
-		description: "This will allow to you add a ToDo task to the repository."
-    }, {
-		title: 'List ToDo\'s',
-		description: "This will allow you to list all the repository ToDo's or make a filtered search of ToDo's by any of its fields."
-	}, {
-		title: 'Remove ToDo\'s',
-		description: "This will allow you to remove all ToDo's from the repository or to remove only a few (through a filtered search)."
-    }];
-	
-  var fields = [{
+  	var fields = [{
 		name: "Task Description",
 		tag: "description"
 	}, {
