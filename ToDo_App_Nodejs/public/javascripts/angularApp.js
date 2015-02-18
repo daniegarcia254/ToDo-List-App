@@ -263,6 +263,24 @@
 			templateUrl: '/angular_directives/toDo_remove_form.html'
 		};
 	});
+
+	app.directive('jqdatepicker', function () {
+		return {
+			restrict: 'A',
+			require: 'ngModel',
+			link: function (scope, element, attrs, ngModelCtrl) {
+				element.datepicker({
+					dateFormat: 'dd, mm, yyyy',
+					autoclose: true,
+					todayHighlight: true,
+					onSelect: function (date) {
+						scope.date = date;
+						scope.$apply();
+					}
+				});
+			}
+		};
+	});
   
   
   
