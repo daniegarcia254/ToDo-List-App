@@ -1,22 +1,23 @@
 <div class="panel-footer">
     <form role="form" name="addToDoForm" ng-submit="addToDo()">
         <div class="form-group">
-            <label id="labelAddDesc" for="inputAddDesc">Task Description:</label>
-            <input id="inputAddDesc" type="text" class="form-control" placeholder="Description"
-                   ng-model="fields.task" required>
+                <label id="addFormTaskLabel" for="inputAddTask">Task Description:</label>
+                <input id="inputAddTask" type="text" class="form-control"placeholder="Description"
+                       ng-model="fields.task" required>
+        </div>
+        <div class="form-group input-append date">
+            <label id="addFormDateLabel" for="inputAddDate">Task Date:</label>
+            <input id="inputAddDate" type="text" class="form-control" placeholder="Context" required
+                   ng-model="date" jqdatepicker>
+            <span class="add-on"><i class="icon-th"></i></span>
         </div>
         <div class="form-group">
-            <label id="labelAddContext" for="inputAddContext">Task Context:</label>
-            <input id="inputAddContext" type="text" class="form-control" placeholder="Context" required
-                   ng-model="fields.context">
-        </div>
-        <div class="form-group">
-            <label id="labelAddProject" for="inputAddProject">Task Project:</label>
-            <input id="inputAddProject" type="text" class="form-control" placeholder="Project" required
+            <label id="addFormStatusLabel" for="inputAddStatus">Task Status:</label>
+            <input id="inputAddStatus" type="text" class="form-control" placeholder="Project" required
                    ng-model="fields.project">
         </div>
         <div class="form-group">
-            <label id="labelAddPriority" for="inputAddPriority">Task Priority:</label>
+            <label id="addFormPriorityLabel" for="inputAddPriority">Task Priority:</label>
             <input id="inputAddPriority" type="number" min="1" max="10" class="form-control" placeholder="Priority" required
                    ng-model="fields.priority">
         </div>

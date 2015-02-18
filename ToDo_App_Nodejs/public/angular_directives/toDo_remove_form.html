@@ -1,8 +1,8 @@
 <div class="panel-footer">
     <form role="form" name="removeToDoForm" ng-submit="removeToDos()" novalidate="">
         <div class="form-group">
-            <label id="labelRemoveField"  for="selectRemoveField">ToDo field:</label><br>
-            <select id="selectRemoveField" class="form-control"
+            <label id="removeFormFieldLabel"  for="removeFormFieldSelect">ToDo field:</label><br>
+            <select id="removeFormFieldSelect" class="form-control"
                     ng-change="checkRemoveInputType(); checkEnableRemoveFormSubmitButton();"
                     ng-model="selector" ng-options="s.name for s in selectors" required>
             </select>

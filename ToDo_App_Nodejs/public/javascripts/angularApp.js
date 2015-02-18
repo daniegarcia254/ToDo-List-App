@@ -7,7 +7,7 @@
 	SERVICES
   -------------------------------------*/
   //Service to retrieve the complete ToDo list of the repository
-  app.factory('ToDosService', function($http, $rootScope) {
+  app.factory('ToDosService', function($http) {
 
 	  var t = {
 		  todos: []

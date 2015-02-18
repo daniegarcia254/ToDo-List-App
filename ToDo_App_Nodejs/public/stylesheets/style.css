@@ -25,39 +25,68 @@
 }
 .inputSearch{
 	vertical-align: middle;
-	width: 30%;
+	width: 30% !important;
 	float: left;
 }
 
 
 /*FORMULARIES*/
-#inputAddDesc, #inputAddContext, #inputAddProject,
 #inputSearchQuery, #inputRemoveQuery{
 	width: 50%;
-	margin-left: 25%;
 }
-#selectSearchField, #selectRemoveField{
+#selectSearchField{
 	width: 15%;
-	margin-left: 25%;
 }
-#inputAddPriority, #inputSearchPriority, #inputRemovePriority{
+#inputRemovePriority{
 	width: 10%;
-	margin-left: 25%;
 }
-#labelAddDesc{
-	margin-right: 39.5%;
+#inputAddTask{
+	margin-left: 16px;
+	width: 50%;
 }
-#labelAddContext, #labelSearchQuery, #labelRemoveQuery{
-	margin-right: 41.5%;
+#inputAddDate{
+	margin-left: 30px;
+	width: 25%;
 }
-#labelAddProject{
-	margin-right: 42%;
+#inputAddStatus{
+	margin-left: 25px;
+	width: 50%;
 }
-#labelSearchField, #labelRemoveField{
-	margin-right: 43%;
+#inputAddPriority{
+	width: 10%;
+	margin-left: 24px;
 }
-#labelAddPriority{
-	margin-right: 41.5%;
+#removeFormFieldSelect{
+	width:15%;
+}
+#addFormTaskLabel{
+	width: 100%;
+	margin-top: 6px;
+}
+#addFormDateLabel{
+	width: 100%;
+	margin-top: 6px;
+	margin-left: 33px;
+}
+#addFormStatusLabel{
+	width: 100%;
+	margin-top: 6px;
+	margin-left: 25px;
+}
+#addFormPriorityLabel{
+	width: 100%;
+	margin-top: 6px;
+	margin-left: 22px;
+}
+#removeFormFieldLabel{
+	margin-left:20px;
+}
+.form-control{
+	margin-left: 2%;
+}
+.form-group {
+	display: -webkit-box !important;
+	margin-left: 25% !important;
 }
 #closeFormButton{
 	margin-left: 20px;
