@@ -4,18 +4,19 @@
 		<thead>
 			<tr>
 				<th>Task Description</th>
-				<th>Context</th>
-				<th>Project</th>
+				<th>Date</th>
+				<th>Status</th>
 				<th>Priority</th>
+				<th></th>
 				<th></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="todo in toDos">
-				<td ng-bind="todo.task"></td>
-				<td ng-bind="todo.context"></td>
-				<td ng-bind="todo.project"></td>
-				<td class="priority" ng-bind="todo.priority"></td>
+				<td>{{todo.task}}</td>
+				<td>{{todo.date | date: "dd-MMM-yyyy HH:mm"}}</td>
+				<td>{{todo.status}}</td>
+				<td class="priority">{{todo.priority}}</td>
 				<td style="padding-left: 50px; padding-right: 20px">
 					<img alt="delete" src="/images/delete_icon.png" class="deleteImg" ng-click="deleteToDo(todo)">
 				</td>

@@ -11,8 +11,10 @@
         </div>
         <div class="form-group">
             <label id="addFormStatusLabel" for="inputAddStatus">Task Status:</label>
-            <input id="inputAddStatus" type="text" class="form-control" placeholder="Status" required
-                   ng-model="fields.project">
+            <select id="inputAddStatus" class="form-control" ng-model="fields.status" required>
+                <option ng-selected value="ToDo">ToDo</option>
+                <option value="On Progress">On Progress</option>
+            </select>
         </div>
         <div class="form-group">
             <label id="addFormPriorityLabel" for="inputAddPriority">Task Priority:</label>

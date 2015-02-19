@@ -274,11 +274,11 @@
 		name: "Task Description",
 		tag: "description"
 	}, {
-		name: "Task Context",
-		tag: "context"
+		name: "Task Date",
+		tag: "date"
 	}, {
-		name: "Task Project",
-		tag: "project"
+		name: "Task Status",
+		tag: "status"
 	}, {
 		name: "Priority(1-10)",
 		tag: "priority"

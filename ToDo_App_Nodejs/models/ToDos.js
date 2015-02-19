@@ -6,8 +6,8 @@ var mongoose = require('mongoose');
 
 var ToDoSchema = new mongoose.Schema({
     task: String,
-    context: String,
-    project: String,
+    date: Date,
+    status: String,
     priority: Number
 });
 
