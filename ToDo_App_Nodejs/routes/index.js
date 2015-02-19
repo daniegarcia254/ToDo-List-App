@@ -4,7 +4,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var ToDo = mongoose.model('ToDo');
 
-/* GET all ToDos. */
+//GET all ToDos.
 router.get('/todos', function(req, res, next) {
   ToDo.find(function(err, todos){
     if(err){ return next(err); }
@@ -13,7 +13,7 @@ router.get('/todos', function(req, res, next) {
   });
 });
 
-/* GET the ToDos that matches [query] in the [tag] field. */
+//GET the ToDos that matches [query] in the [tag] field.
 router.get('/todos/:query', function(req, res, next) {
 
   var q = req.params.query;
@@ -28,7 +28,7 @@ router.get('/todos/:query', function(req, res, next) {
       });
 });
 
-/* GET the ToDos that matches a given priority */
+//GET the ToDos that matches a given priority
 router.get('/todos/priority/:query', function(req, res, next) {
 
   var p = parseInt(req.params.query);
@@ -40,7 +40,7 @@ router.get('/todos/priority/:query', function(req, res, next) {
   });
 });
 
-/* POST --> create a new ToDo */
+//POST --> create a new ToDo
 router.post('/todos', function(req, res, next) {
 
   var todo = new ToDo(req.body);
@@ -54,7 +54,7 @@ router.post('/todos', function(req, res, next) {
 
 
 
-/* DELETE --> Delete a ToDo */
+// DELETE --> Delete a ToDo
 router.post('/todos/remove', function(req, res) {
 
   var todo = new ToDo(req.body);
@@ -66,7 +66,7 @@ router.post('/todos/remove', function(req, res) {
   });
 });
 
-/* DELETE --> Delete multiple ToDos that exactly match a string */
+//DELETE --> Delete multiple ToDos that exactly match a string
 router.post('/todos/removeMultiple/:selector/:query', function(req, res) {
 
   var s = req.params.selector;

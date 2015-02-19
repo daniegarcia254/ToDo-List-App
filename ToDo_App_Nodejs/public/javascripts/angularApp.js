@@ -41,7 +41,7 @@
 			  });
 	  };
 
-	  t.create = function(todo, cb) {
+	  t.createToDo = function(todo, cb) {
 		  return $http.post(API_URI, todo).success(cb);
 	  };
 
@@ -134,7 +134,7 @@
 		$rootScope.addTodoFormShow = false;
 		$scope.closeAddToDoForm = function(){
 			$rootScope.addTodoFormShow = !$rootScope.addTodoFormShow;
-			$scope.filed = "";
+			$scope.fields = "";
 		};
 
 		//Function for add to the DB a new ToDo
@@ -142,7 +142,7 @@
 			var todo=$scope.fields;	//Take the form fields
 			$scope.fields = "";   //Clear the form
 
-			ToDosService.create(todo, function(){
+			ToDosService.createToDo(todo, function(){
 				$scope.closeAddToDoForm();
 				ToDosService.getAll(function(data){
 					$rootScope.toDos = data;
@@ -215,7 +215,7 @@
 				  }, 500);
 			  }
 		  };
-	  };
+	  	};
   });
 
  	//Controller for keeping updated the table with the ToDo's
