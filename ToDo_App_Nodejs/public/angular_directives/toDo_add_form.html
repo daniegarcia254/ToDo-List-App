@@ -7,13 +7,11 @@
         </div>
         <div class="form-group input-append date">
             <label id="addFormDateLabel" for="inputAddDate">Task Date:</label>
-            <input id="inputAddDate" type="text" class="form-control" placeholder="Context" required
-                   ng-model="date" jqdatepicker>
-            <span class="add-on"><i class="icon-th"></i></span>
+            <input id="inputAddDate" type="datetime-local" class="form-control"  ng-model="fields.date" required>
         </div>
         <div class="form-group">
             <label id="addFormStatusLabel" for="inputAddStatus">Task Status:</label>
-            <input id="inputAddStatus" type="text" class="form-control" placeholder="Project" required
+            <input id="inputAddStatus" type="text" class="form-control" placeholder="Status" required
                    ng-model="fields.project">
         </div>
         <div class="form-group">
