@@ -103,6 +103,7 @@ table.todotable th:nth-of-type(3) {width:10%;}
 table.todotable th:nth-of-type(4) {width:5%;}
 table.todotable td:nth-of-type(4) {text-align: center}
 table.todotable th:nth-of-type(5) {width:5%;}
+table.todotable th:nth-of-type(6) {width:5%;}
 
 table.todotable td {
 	word-break: break-all;
@@ -117,11 +118,11 @@ table.todotable td {
 	font-weight: bold;
 	color: red;
 }
-.deleteImg{
+.tableImg{
 	width: 20px;
 	height: 20px;
 }
-.deleteImg:hover{
+.tableImg:hover{
 	cursor: pointer;
 }
 
