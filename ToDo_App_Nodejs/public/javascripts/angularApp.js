@@ -128,10 +128,13 @@
 	//Controller for the "Add ToDo" form
 	app.controller('addToDoFormCtrl', function($scope, $rootScope, $http, ToDosService){
 
+		$scope.selectors = fields;
+
 		//Show & hide the form
 		$rootScope.addTodoFormShow = false;
 		$scope.closeAddToDoForm = function(){
 			$rootScope.addTodoFormShow = !$rootScope.addTodoFormShow;
+			$scope.filed = "";
 		};
 
 		//Function for add to the DB a new ToDo
@@ -151,20 +154,21 @@
   	//Controller for the "Remove ToDo's" form
   	app.controller('removeToDosFormCtrl', function($scope, $rootScope, $http, ToDosService, $timeout){
 
-	  //Show & hide the form
-	  $rootScope.removeTodoFormShow = false;
-	  $scope.closeRemoveToDoForm = function(){
+		$scope.selectors = fields;
+
+		//Show & hide the form
+		$rootScope.removeTodoFormShow = false;
+		$scope.closeRemoveToDoForm = function(){
 		  $rootScope.removeTodoFormShow = !$rootScope.removeTodoFormShow;
-	  };
+		};
 
-	  //Initiate the form remove input as text type
-	  if (typeof $scope.selector === 'undefined') {
-		  $rootScope.hideInputRemovePriority = $rootScope.showInputRemove = true;
-	  }
+	  	//Initiate the form remove input as text type
+	  	if (typeof $scope.selector === 'undefined') {
+		  	$rootScope.hideInputRemovePriority = $rootScope.showInputRemove = true;
+	  	}
 
-	  $scope.selectors = fields;
-	  //Function for remove in the DB the ToDo's that match the user input query
-	  $scope.removeToDos = function() {
+	  	//Function for remove in the DB the ToDo's that match the user input query
+	  	$scope.removeToDos = function() {
 		  var query_bis = $scope.query;
 		  ToDosService.removeToDos($scope.selector.tag, $scope.query, function() {
 			  //Get the complete list of ToDo's after removing
@@ -182,20 +186,20 @@
 				  $rootScope.errorMessage = "";
 			  });
 		  });
-	  };
+	  	};
 
-	  $rootScope.submitRemoveDisabled = true;
-	  //Function that handles if the submit button is enabled
-	  $scope.checkEnableRemoveFormSubmitButton = function(element){
+	  	$rootScope.submitRemoveDisabled = true;
+	  	//Function that handles if the submit button is enabled
+	  	$scope.checkEnableRemoveFormSubmitButton = function(element){
 		  if (typeof $scope.selector == 'undefined') {
 			  $rootScope.submitRemoveDisabled = true;
 		  } else {
 			  $rootScope.submitRemoveDisabled =  !(typeof $scope.query != 'undefined');
 		  }
-	  };
+	  	};
 
-	  //Function that handles the formulary input element change of type
-	  $scope.checkRemoveInputType = function() {
+	  	//Function that handles the formulary input element change of type
+	  	$scope.checkRemoveInputType = function() {
 		  if (typeof $scope.selector === 'undefined') {
 			  $rootScope.hideInputRemovePriority = $rootScope.showInputRemove = true;
 		  } else {
