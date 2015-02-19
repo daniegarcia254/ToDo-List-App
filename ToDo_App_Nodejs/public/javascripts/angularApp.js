@@ -128,8 +128,6 @@
 	//Controller for the "Add ToDo" form
 	app.controller('addToDoFormCtrl', function($scope, $rootScope, $http, ToDosService){
 
-		$scope.selectors = fields;
-
 		//Show & hide the form
 		$rootScope.addTodoFormShow = false;
 		$scope.closeAddToDoForm = function(){
@@ -220,25 +218,25 @@
 
  	//Controller for keeping updated the table with the ToDo's
   	app.controller('showResultCtrl', function($scope, $rootScope, $http, ToDosService){
-	ToDosService.getAll(function(data) {
-		$rootScope.toDos = data;
-	});
-	
-	//Removes a single ToDo identified by its [id]
-	$scope.deleteToDo = function(todo) {
-		/*$http.delete(API_URI)
-			.success(function(data, status, headers, config) {
-				$rootScope.toDos = data;
-				$rootScope.errorMessage = "";
-			});*/
-
-		ToDosService.removeToDo(todo, function(){
-			ToDosService.getAll(function(data){
-				$rootScope.toDos = data;
-			});
+		ToDosService.getAll(function(data) {
+			$rootScope.toDos = data;
 		});
-	};
-  });
+	
+		//Removes a single ToDo identified by its [id]
+		$scope.deleteToDo = function(todo) {
+			/*$http.delete(API_URI)
+				.success(function(data, status, headers, config) {
+					$rootScope.toDos = data;
+					$rootScope.errorMessage = "";
+				});*/
+
+			ToDosService.removeToDo(todo, function(){
+				ToDosService.getAll(function(data){
+					$rootScope.toDos = data;
+				});
+			});
+		};
+  	});
   
   
   	/*-----------------------------------
