@@ -1,27 +1,51 @@
 <div class="panel-footer">
-    <form role="form" name="addToDoForm" ng-submit="addToDo()">
-        <div class="form-group">
+    <form role="form" name="addToDoForm" id="addToDoForm" ng-submit="addToDo()">
+        <div class="row">
+            <div class="form-group pull-left">
                 <label id="addFormTaskLabel" for="inputAddTask">Task Description:</label>
+            </div>
+            <div class="form-group pull-left">
                 <input id="inputAddTask" type="text" class="form-control"placeholder="Description"
                        ng-model="fields.task" required>
+            </div>
         </div>
-        <div class="form-group input-append date">
-            <label id="addFormDateLabel" for="inputAddDate">Task Date:</label>
-            <input id="inputAddDate" type="datetime-local" class="form-control"  ng-model="fields.date" required>
+
+        <div class="row">
+            <div class="form-group pull-left">
+                <label id="addFormDateLabel" for="inputAddDate">Task Date:</label>
+            </div>
+            <div class="form-group pull-left">
+                <input id="inputAddDate" type="datetime-local" class="form-control"  ng-model="fields.date" required>
+            </div>
         </div>
-        <div class="form-group">
-            <label id="addFormStatusLabel" for="inputAddStatus">Task Status:</label>
-            <select id="inputAddStatus" class="form-control" ng-model="fields.status" required>
-                <option ng-selected value="ToDo">ToDo</option>
-                <option value="On Progress">On Progress</option>
-            </select>
+
+        <div class="row">
+            <div class="form-group pull-left">
+                <label id="addFormStatusLabel" for="inputAddStatus">Task Status:</label>
+            </div>
+            <div class="form-group pull-left">
+                <select id="inputAddStatus" class="form-control" ng-model="fields.status" required>
+                    <option ng-selected value="ToDo">ToDo</option>
+                    <option value="On Progress">On Progress</option>
+                </select>
+            </div>
         </div>
-        <div class="form-group">
-            <label id="addFormPriorityLabel" for="inputAddPriority">Task Priority:</label>
-            <input id="inputAddPriority" type="number" min="1" max="10" class="form-control" placeholder="Priority" required
-                   ng-model="fields.priority">
+
+        <div class="row">
+            <div class="form-group pull-left">
+                <label id="addFormPriorityLabel" for="inputAddPriority">Task Priority:</label>
+            </div>
+            <div class="form-group pull-left">
+                <input id="inputAddPriority" type="number" min="1" max="10" class="form-control" placeholder="Priority" required
+                       ng-model="fields.priority">
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary" id="formButton">Add ToDo</button>
-        <button type="button" ng-click="closeAddToDoForm()" class="btn btn-danger" id="closeFormButton">Close</button>
+
+        <div class="row">
+            <div class="pull-left">
+                <button type="submit" class="btn btn-primary" id="formButton">Add ToDo</button>
+                <button type="button" ng-click="closeAddToDoForm()" class="btn btn-danger" id="closeFormButton">Close</button>
+            </div>
+        </div>
     </form>
 </div>
