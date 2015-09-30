@@ -6,7 +6,7 @@
   	/*-----------------------------------
 	SERVICES
   -------------------------------------*/
-  	//Service to retrieve the complete ToDo list of the repository
+  	//Service to retrieve the complete TODO list of the repository
   	app.factory('ToDosService', function($http) {
 
 	  var t = {
@@ -150,7 +150,7 @@
 	});
 
   	//Controller for the "Remove ToDo's" form
-  	app.controller('removeToDosFormCtrl', function($scope, $rootScope, $http, ToDosService, $timeout, $compile){
+  	app.controller('removeToDosFormCtrl', function($scope, $rootScope, $http, ToDosService, $timeout){
 
 		$scope.selectors = fields;
 		$scope.taskField = false;
@@ -174,7 +174,6 @@
 
 	  	//Function for remove in the DB the ToDo's that match the user input query
 	  	$scope.removeToDos = function() {
-		  var query_bis = $scope.query;
 		  ToDosService.removeToDos($scope.selector.tag, $scope.query, function() {
 			  //Get the complete list of ToDo's after removing
 			  ToDosService.getAll(function(data){
