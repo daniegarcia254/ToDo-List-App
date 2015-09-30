@@ -186,6 +186,9 @@ table.todotable td {
 	.inputSearch {
 		margin-left: -30px;
 	}
+	#removeToDoForm input, #removeToDoForm select {
+		width: 150px;
+	}
 }
 @media screen and (max-width: 400px){
 	.inputSearch {
@@ -198,4 +201,17 @@ table.todotable td {
 	#removeIconBtn {
 		margin-right: 0px;
 	}
+}
+@media screen and (max-width: 375px){
+	#removeToDoForm input, #removeToDoForm select {
+		width: 100px;
+		height: 28px;
+	}
+	#removeToDoForm .form-control, #removeToDoForm label {
+		font-size: 12px;
+	}
+	#removeToDoForm .row {
+		margin-right: 10px !important;
+	}
+
 }
