@@ -43,7 +43,9 @@ router.get('/todos/priority/:query', function(req, res, next) {
 //POST --> create a new ToDo
 router.post('/todos', function(req, res, next) {
 
+
   var todo = new ToDo(req.body);
+  todo.editing = false;
 
   todo.save(function(err, todo){
     if(err){ return next(err); }

@@ -86,8 +86,12 @@ table.todotable td:nth-of-type(4) {text-align: center}
 table.todotable td:nth-of-type(5) {padding-left: 20px !important;}
 table.todotable td:nth-of-type(6) {padding-left: 20px !important;}
 
+table.todotable input, table.todotable select {
+	height: 25px;
+}
+
 table.todotable td {
-	word-break: break-word;
+	word-break: break-all;
 }
 #toDoTableDiv{
 	margin-top: 20px;
