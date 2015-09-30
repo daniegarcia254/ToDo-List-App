@@ -13,48 +13,7 @@
             </div>
         </div>
 
-        <div class="row" ng-show="showRemoveFormTaskInput">
-            <div class="form-group pull-right">
-                <input type="text" class="form-control" id="removeFormInputTask" placeholder="Text"
-                       ng-change="checkEnableRemoveFormSubmitButton()" ng-model="query">
-            </div>
-            <div class="form-group pull-right">
-                <label id="removeFormTaskLabel">Text to match:</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="form-group pull-right">
-                <input type="datetime-local" class="form-control" id="removeFormInputDate" placeholder="Date"
-                       ng-change="checkEnableRemoveFormSubmitButton()" ng-model="query">
-            </div>
-            <div class="form-group pull-right">
-                <label id="removeFormDateLabel">Date to match:</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="form-group pull-right">
-                <select id="removeFormInputStatus" class="form-control" ng-model="query" placeholder="Status"
-                        ng-change="checkEnableRemoveFormSubmitButton()">
-                    <option ng-selected value="ToDo">ToDo</option>
-                    <option value="On Progress">On Progress</option>
-                </select>
-            </div>
-            <div class="form-group pull-right">
-                <label class="removeFormStatusLabel">Status to match:</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="form-group pull-right">
-                <input type="number" min="1" max="10" class="form-control" id="removeFormInputPriority"
-                       ng-change="checkEnableRemoveFormSubmitButton()" ng-model="query" placeholder="Priority">
-            </div>
-            <div class="form-group pull-right">
-                <label id="removeFormPriorityLabel">Priority to match:</label>
-            </div>
-        </div>
+        <div class="row" id="removeToDoFormField"></div>
 
         <div class="row">
             <div class="pull-right">

@@ -265,6 +265,35 @@
 			templateUrl: '/angular_directives/toDo_remove_form.html'
 		};
 	});
+
+	//Directive for task field - remove ToDo's formulary
+	app.directive('todoRemoveFormTaskField', function() {
+		return {
+			restrict: 'E',
+			templateUrl: '/angular_directives/toDo_remove_form_task_field.html'
+		};
+	});
+	//Directive for date field - remove ToDo's formulary
+	app.directive('todoRemoveFormDateField', function() {
+		return {
+			restrict: 'E',
+			templateUrl: '/angular_directives/toDo_remove_form_date_field.html'
+		};
+	});
+	//Directive for status field - remove ToDo's formulary
+	app.directive('todoRemoveFormStatusField', function() {
+		return {
+			restrict: 'E',
+			templateUrl: '/angular_directives/toDo_remove_form_status_field.html'
+		};
+	});
+	//Directive for task priority - remove ToDo's formulary
+	app.directive('todoRemoveFormPriorityField', function() {
+		return {
+			restrict: 'E',
+			templateUrl: '/angular_directives/toDo_remove_form_priority_field.html'
+		};
+	});
   
   
   	/*-----------------------------------
