@@ -3,18 +3,18 @@
 	<table class="table table-striped todotable">
 		<thead>
 			<tr>
-				<th>Task Description</th>
-				<th>Date</th>
-				<th>Status</th>
-				<th>Priority</th>
-				<th></th>
-				<th></th>
+				<th class="col-sm-5">Task Description</th>
+				<th class="col-sm-2">Date</th>
+				<th class="col-sm-2">Status</th>
+				<th class="col-sm-1">Priority</th>
+				<th class="col-sm-1"></th>
+				<th class="col-sm-1"></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr ng-repeat="todo in toDos">
 				<td>{{todo.task}}</td>
-				<td>{{todo.date | date: "dd-MMM-yyyy HH:mm"}}</td>
+				<td>{{todo.date | date: "dd/mm/yy HH:mm"}}</td>
 				<td>{{todo.status}}</td>
 				<td class="priority">{{todo.priority}}</td>
 				<td style="padding-left: 50px; padding-right: 20px">
