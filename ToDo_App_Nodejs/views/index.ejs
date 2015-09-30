@@ -16,6 +16,7 @@
 	  <link href="/stylesheets/style.css" rel="stylesheet">
 	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	  <link rel="stylesheet" href="/fonts/font-awesome-4.4.0/css/font-awesome.css">
 	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 	  <!--Remov ToDo's button tooltip-->
@@ -30,7 +31,7 @@
 		<div class="jumbotron">
 			<h3 style="text-align: center">Welcome to the ToDo Web App!</h3>
 		</div>
-		<div class="container">
+		<div class="container-fluid">
 			<!-------->
 			<div id="content">
 				<div id="home">
@@ -39,12 +40,22 @@
 						<div class="panel-body" ng-controller="ActionButtonsCtrl">
 							<button type="button" id="addToDoButton" ng-click="showHideAddForm()"
 									class="btn btn-success actionButton">Add ToDo</button>
+							<a class="btn btn-success" id="addIconBtn" ng-click="showHideAddForm()"
+							   href="#" style="display: none">
+								<i class="fa fa-plus-circle fa-2x"></i>
+							</a>
 							<input type=search class="form-control inputSearch" results=5 name=s placeholder=Search...
 									ng-model="query" ng-change="searchToDos()">
 							<button type="button" id="removeToDosButton" ng-click="showHideRemoveForm()"
 									class="btn btn-danger actionButton"
 									data-toggle="tooltip" data-placement="top"
 									title="Remove multiple ToDo's at once!">Remove ToDo's</button>
+							<a class="btn btn-danger" id="removeIconBtn"  ng-click="showHideRemoveForm()"
+							   href="#" style="display: none"
+							   data-toggle="tooltip" data-placement="top"
+							   title="Remove multiple ToDo's at once!">
+								<i class="fa fa-trash-o fa-2x"></i>
+							</a>
 						</div>
 						<div ng-controller="addToDoFormCtrl" ng-show="addTodoFormShow" class="fadein fadeout">
 							<todo-add-form>
