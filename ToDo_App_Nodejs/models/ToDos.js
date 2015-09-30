@@ -8,7 +8,8 @@ var ToDoSchema = new mongoose.Schema({
     task: String,
     date: Date,
     status: String,
-    priority: Number
+    priority: Number,
+    editing: Boolean
 });
 
 mongoose.model('ToDo', ToDoSchema);
