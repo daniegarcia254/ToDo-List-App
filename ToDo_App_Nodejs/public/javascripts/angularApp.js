@@ -8,38 +8,38 @@
   -------------------------------------*/
   	//Service to retrieve the complete TODO list of the repository
   	app.factory('ToDosService', function($http) {
+		var t = {
+			todos: []
+		};
 
-	  var t = {
-		  todos: []
-	  };
+	  	t.getAll = function(cb) {
+			return $http.get(API_URI).success(cb);
+	  	};
 
-	  t.getAll = function(cb) {
-		  return $http.get(API_URI).success(cb);
-	  };
+	  	t.getFilteredToDos = function(query, cb) {
+			return $http.get(API_URI+"/"+query).success(cb);
+		};
 
-	  t.getFilteredToDos = function(query, cb) {
-		  return $http.get(API_URI+"/"+query).success(cb);
-	  };
+		t.getFilteredToDosByPriority = function(priority, cb) {
+			return $http.get(API_URI+'/priority/'+priority).success(cb);
+		};
 
-	  t.getFilteredToDosByPriority = function(priority, cb) {
-		  return $http.get(API_URI+'/priority/'+priority).success(cb);
-	  };
+		t.removeToDo = function(todo, cb) {
+			return $http.post(API_URI+"/remove", todo)
+				.success(cb)
+				.error(function(error){
+					console.log(error);
+				});
+		};
 
-	  t.removeToDo = function(todo, cb) {
-		  return $http.post(API_URI+"/remove", todo)
-			  .success(cb)
-			  .error(function(error){
-			  console.log(error);
-		  });
-	  };
+		t.removeToDos = function(selector, query, cb) {
+			return $http.post(API_URI+"/removeMultiple/"+selector+"/"+query.toString())
+				.success(cb)
+				.error(function(error){
+					console.log(error);
+				});
+		};
 
-	  t.removeToDos = function(selector, query, cb) {
-		  return $http.post(API_URI+"/removeMultiple/"+selector+"/"+query.toString())
-			  .success(cb)
-			  .error(function(error){
-				  console.log(error);
-			  });
-	  };
 
 	  t.createToDo = function(todo, cb) {
 		  return $http.post(API_URI, todo).success(cb);
