@@ -43,7 +43,6 @@ router.get('/todos/priority/:query', function(req, res, next) {
 //POST --> create a new ToDo
 router.post('/todos', function(req, res, next) {
 
-
   var todo = new ToDo(req.body);
   todo.editing = false;
 
@@ -102,6 +101,29 @@ router.post('/todos/removeMultiple/:selector/:query', function(req, res) {
       });
       break;
   }
+});
+
+//PUT --> Update ToDo
+router.put('/todos', function(req, res, next) {
+
+  var todo = new ToDo(req.body);
+
+  ToDo.findById(todo._id, function(err,p){
+    if (!p)
+      return next(new Error('Could not load Document'));
+    else {
+      p.task = todo.task;
+      p.date= todo.date;
+      p.status = todo.status;
+      p.priority = todo.priority;
+      p.editing = false;
+
+      p.save(function(err){
+        if(err){ console.log(err); return next(err); }
+        res.json(todo);
+      })
+    }
+  });
 });
 
 

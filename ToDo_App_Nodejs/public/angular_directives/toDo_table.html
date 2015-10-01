@@ -8,6 +8,7 @@
 				<th class="col-sm-2">Status</th>
 				<th class="col-sm-1">Priority</th>
 				<th class="col-sm-1"></th>
+				<th class="col-sm-1 cancel-edit-col"></th>
 				<th class="col-sm-1"></th>
 			</tr>
 		</thead>
@@ -32,15 +33,19 @@
 					<span ng-hide="editingData[todo._id]">{{todo.priority}}</span>
 					<input type="number" min="1" max="10" ng-model="todo.priority" ng-show="editingData[todo._id]"/>
 				</td>
-				<!--<td>{{todo.task}}</td>
-				<td>{{todo.date | date: "dd/mm/yy HH:mm"}}</td>
-				<td>{{todo.status}}</td>
-				<td class="priority">{{todo.priority}}</td>-->
-				<td style="padding-left: 50px; padding-right: 20px">
-					<img alt="delete" src="/images/edit.png" class="tableImg" ng-click="modify(todo)">
+				<td>
+					<img alt="Modify" src="/images/edit.png" class="tableImg editIcon" ng-hide="editingData[todo._id]"
+						 title="Modify ToDo" ng-click="modify(todo, $index)">
+					<img alt="Modify" src="/images/save-icon.png" class="tableImg cancelEditIcon" ng-hide="!(editingData[todo._id])"
+						 title="Save ToDo edition" ng-click="saveToDo(todo, $index)">
 				</td>
-				<td style="padding-left: 50px; padding-right: 20px">
-					<img alt="delete" src="/images/delete_icon.png" class="tableImg" ng-click="deleteToDo(todo)">
+				<td class="cancel-edit-col">
+					<img alt="Cancel Edit" src="/images/edit-cancel.png" class="tableImg cancelEdit"
+						 title="Candel ToDo edition" ng-click="cancelEditing(todo, $index)">
+				</td>
+				<td>
+					<img alt="Delete" src="/images/delete_icon.png" class="tableImg delIcon"
+						 title="Delete ToDo" ng-click="deleteToDo(todo)">
 				</td>
 			</tr>
 		</tbody>

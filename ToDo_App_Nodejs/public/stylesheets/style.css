@@ -85,6 +85,7 @@ table.todotable {
 table.todotable td:nth-of-type(4) {text-align: center}
 table.todotable td:nth-of-type(5) {padding-left: 20px !important;}
 table.todotable td:nth-of-type(6) {padding-left: 20px !important;}
+table.todotable td:nth-of-type(7) {padding-left: 20px !important;}
 
 table.todotable input, table.todotable select {
 	height: 25px;
@@ -104,11 +105,18 @@ table.todotable td {
 	color: red;
 }
 .tableImg{
-	width: 20px;
-	height: 20px;
+	 width: 20px;
+	 height: 20px;
+}
+.tableImg.cancelEdit {
+	width: 30px;
+	height: 25px;
 }
 .tableImg:hover{
 	cursor: pointer;
+}
+.cancel-edit-col {
+	display: none;
 }
 
 /*Transition for show & hide the formularies*/

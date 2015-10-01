@@ -40,10 +40,18 @@
 				});
 		};
 
+		t.createToDo = function(todo, cb) {
+			return $http.post(API_URI, todo).success(cb);
+		};
 
-	  t.createToDo = function(todo, cb) {
-		  return $http.post(API_URI, todo).success(cb);
-	  };
+		t.saveToDo = function(todo,cb) {
+			return $http.put(API_URI, todo)
+				.success(cb)
+				.error(function(error){
+					console.log(error);
+				});
+		}
+
 
 	  return t;
   });
@@ -263,9 +271,24 @@
 			});
 		};
 
-		$scope.modify = function(todo){
-			console.log($scope.editingData);
+		$scope.modify = function(todo, index){
 			$scope.editingData[todo._id] = true;
+			$('#toDoTableDiv').find('tr:nth-child('+(index+1)+')').find('.cancel-edit-col').show();
+		};
+
+		$scope.cancelEditing = function(todo, index){
+			$scope.editingData[todo._id] = false;
+			$('#toDoTableDiv').find('tr:nth-child('+(index+1)+')').find('.cancel-edit-col').hide();
+		};
+
+		$scope.saveToDo = function(todo, index){
+			$scope.editingData[todo._id] = false;
+			ToDosService.saveToDo(todo, function(){
+				ToDosService.getAll(function(data){
+					$rootScope.toDos = data;
+					$('#toDoTableDiv').find('tr:nth-child('+(index+1)+')').find('.cancel-edit-col').hide();
+				});
+			});
 		};
   	});
   
