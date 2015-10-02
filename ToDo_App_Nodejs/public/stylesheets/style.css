@@ -24,17 +24,9 @@
 	float: right;
 	margin-right: 20px;
 }
-.inputSearch{
-	vertical-align: middle;
-	width: 30% !important;
-	float: left;
-}
 
 
 /*FORMULARIES*/
-#inputSearchQuery, #inputRemoveQuery{
-	width: 50%;
-}
 #selectSearchField{
 	width: 15%;
 }
@@ -79,6 +71,10 @@
 }
 
 /*TODO's TABLE*/
+#toDoTableDiv .input-group .form-control {
+	margin-left: 0;
+}
+
 table.todotable {
 	width: 100%;
 }
@@ -143,31 +139,6 @@ table.todotable td {
 
 
 /*  MEDIA QUERIES */
-@media screen and (max-width: 992px){
-	.inputSearch {
-		margin-left: -50px;
-	}
-}
-@media screen and (max-width: 769px){
-	.inputSearch {
-		margin-left: -60px;
-	}
-}
-@media screen and (max-width: 680px){
-	.inputSearch {
-		margin-left: -70px;
-	}
-}
-@media screen and (max-width: 590px){
-	.inputSearch {
-		margin-left: -80px;
-	}
-}
-@media screen and (max-width: 590px){
-	.inputSearch {
-		margin-left: -80px;
-	}
-}
 @media screen and (max-width: 545px){
 	.actionButton {
 		display: none !important;
@@ -187,22 +158,13 @@ table.todotable td {
 		float: right;
 		margin-right: 20px;
 	}
-	.inputSearch {
-		margin-left: -20px;
-	}
 }
 @media screen and (max-width: 440px){
-	.inputSearch {
-		margin-left: -30px;
-	}
 	#removeToDoForm input, #removeToDoForm select {
 		width: 150px;
 	}
 }
 @media screen and (max-width: 400px){
-	.inputSearch {
-		margin-left: -40px;
-	}
 	#addIconBtn {
 		margin-left: -5px;
 		margin-right: 30%;

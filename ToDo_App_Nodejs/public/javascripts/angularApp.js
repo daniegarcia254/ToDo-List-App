@@ -76,39 +76,6 @@
 	//Controller for the action buttons
 	app.controller('ActionButtonsCtrl', function($scope, $rootScope, $timeout, ToDosService){
 
-		//Function for search in the DB the ToDo's that match the user input query
-		$scope.searchToDos = function() {
-			var query_bis = $scope.query;
-			if (query_bis.length >= 3 ) {
-				ToDosService.getFilteredToDos($scope.query, function (data) {
-					$rootScope.toDos = data;
-					if (data.length === 0) {
-						$rootScope.errorMessage = "Not ToDo's matches found with \"" + query_bis + "\" on any fields";
-					} else {
-						$rootScope.errorMessage = "";
-					}
-				})
-			} else if (query_bis.length == 0) {
-				ToDosService.getAll(function(data){
-					$rootScope.errorMessage = "";
-					$rootScope.toDos = data;
-				})
-			} else {
-				if (query_bis.length == 1 || query_bis.length == 2){
-					if (parseInt(query_bis)){
-						ToDosService.getFilteredToDosByPriority($scope.query, function (data) {
-							$rootScope.toDos = data;
-							if (data.length === 0) {
-								$rootScope.errorMessage = "Not ToDo's matches found with priority " + query_bis;
-							} else {
-								$rootScope.errorMessage = "";
-							}
-						})
-					}
-				}
-			}
-		};
-
 		$scope.showHideAddForm = function(){
 			if ($rootScope.removeTodoFormShow){
 				$rootScope.removeTodoFormShow=!$rootScope.removeTodoFormShow;
@@ -254,7 +221,11 @@
  	//Controller for keeping updated the table with the ToDo's
   	app.controller('showResultCtrl', function($scope, $rootScope, $http, ToDosService){
 
+		$scope.sortType     = ''; // set the default sort type
+		$scope.sortReverse  = false;  // set the default sort order
+		$scope.searchToDo   = '';     // set the default search/filter term
 		$scope.editingData = [];
+
 		ToDosService.getAll(function(data) {
 			$rootScope.toDos = data;
 			for (var i = 0, length =$rootScope.toDos.length; i < length; i++) {
