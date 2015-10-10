@@ -45,7 +45,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="todo in toDos | orderBy:sortType:sortReverse | filter:searchToDo">
+			<tr ng-repeat="todo in toDos | orderBy:sortType:sortReverse | filter:paginate | filter:searchToDo">
 				<td>
 					<span ng-hide="editingData[todo._id]">{{todo.task}}</span>
 					<input type="text" ng-model="todo.task" ng-show="editingData[todo._id]"/>
@@ -66,21 +66,25 @@
 					<input type="number" min="1" max="10" ng-model="todo.priority" ng-show="editingData[todo._id]"/>
 				</td>
 				<td>
-					<img alt="Modify" src="/images/edit.png" class="tableImg editIcon" ng-hide="editingData[todo._id]"
+					<img alt="Modify" src="/img/edit.png" class="tableImg editIcon" ng-hide="editingData[todo._id]"
 						 title="Modify ToDo" ng-click="modify(todo, $index)">
-					<img alt="Modify" src="/images/save-icon.png" class="tableImg cancelEditIcon" ng-hide="!(editingData[todo._id])"
+					<img alt="Modify" src="/img/save-icon.png" class="tableImg cancelEditIcon" ng-hide="!(editingData[todo._id])"
 						 title="Save ToDo edition" ng-click="saveToDo(todo, $index)">
 				</td>
 				<td class="cancel-edit-col">
-					<img alt="Cancel Edit" src="/images/edit-cancel.png" class="tableImg cancelEdit"
+					<img alt="Cancel Edit" src="/img/edit-cancel.png" class="tableImg cancelEdit"
 						 title="Candel ToDo edition" ng-click="cancelEditing(todo, $index)">
 				</td>
 				<td>
-					<img alt="Delete" src="/images/delete_icon.png" class="tableImg delIcon"
+					<img alt="Delete" src="/img/delete_icon.png" class="tableImg delIcon"
 						 title="Delete ToDo" ng-click="deleteToDo(todo)">
 				</td>
 			</tr>
 		</tbody>
 	</table>
+	<pagination total-items="totalItems" ng-model="currentPage"
+				max-size="5" boundary-links="true"
+				items-per-page="numPerPage" class="pagination-sm">
+	</pagination>
 	<span id="errorSpan" ng-bind="errorMessage"></span>
 </div>

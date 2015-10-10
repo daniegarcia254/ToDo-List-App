@@ -6,27 +6,46 @@
 	  <meta name="viewport" content="width=device-width, initial-scale=1">
 	  <title>ToDo List</title>
 
-	  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	  <!-- jQuery and AngularJS -->
 	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
 	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-animate.min.js"></script>
-	  <!-- Include all compiled plugins (below), or include individual files as needed -->
-	  <script src="/javascripts/angularApp.js"></script>
+	  <script src="http://code.angularjs.org/1.2.16/angular-resource.js"></script>
+	  <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
+
 	  <!-- Bootstrap -->
-	  <link href="/stylesheets/style.css" rel="stylesheet">
+	  <link href="/css/style.css" rel="stylesheet">
 	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	  <link rel="stylesheet" href="/fonts/font-awesome-4.4.0/css/font-awesome.css">
 	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-	  <!--Remov ToDo's button tooltip-->
+	  <!-- My app's js files -->
+	  <script src="/js/angularApp.js"></script>
+	  <script src="/js/services/toDoService.js"></script>
+	  <script src="/js/controllers/mainCtrl.js"></script>
+	  <script src="/js/controllers/actionButtonsCtrl.js"></script>
+	  <script src="/js/controllers/addToDoFormCtrl.js"></script>
+	  <script src="/js/controllers/removeToDosFormCtrl.js"></script>
+	  <script src="/js/controllers/showResultCtrl.js"></script>
+	  <script src="/js/directives/todosTable.js"></script>
+	  <script src="/js/directives/todoAddForm.js"></script>
+	  <script src="/js/directives/todoRemoveForm.js"></script>
+	  <script src="/js/directives/todoRemoveFormTaskField.js"></script>
+	  <script src="/js/directives/todoRemoveFormDateField.js"></script>
+	  <script src="/js/directives/todoRemoveFormStatusField.js"></script>
+	  <script src="/js/directives/todoRemoveFormPriorityField.js"></script>
+	  <script src="/js/constants.js"></script>
+
+	  <!-- Init tooltips -->
 	  <script type="text/javascript">
 		  $(function () {
 	  		$('[data-toggle="tooltip"]').tooltip()
 		  });
 	  </script>
+
   </head>
-  <body ng-app="toDoApp" ng-controller="MainCtrl">
+  <body ng-app="toDoApp" ng-controller="mainCtrl">
 	<div class="container">
 		<div class="jumbotron">
 			<h3 style="text-align: center">Welcome to the ToDo Web App!</h3>
@@ -37,7 +56,7 @@
 				<div id="home">
 					<div class="panel panel-info buttonsPanel">
 						<div class="panel-heading">Actions for managing your ToDo's</div>
-						<div class="panel-body" ng-controller="ActionButtonsCtrl">
+						<div class="panel-body" ng-controller="actionButtonsCtrl">
 							<button type="button" id="addToDoButton" ng-click="showHideAddForm()"
 									class="btn btn-success actionButton">Add ToDo</button>
 							<a class="btn btn-success" id="addIconBtn" ng-click="showHideAddForm()"
