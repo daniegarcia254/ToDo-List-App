@@ -1,5 +1,5 @@
 <!-- Displays a table with the ToDo's information in the variable [toDos] -->
-<div id="toDoTableDiv" ng-controller="showResultCtrl">
+<div id="toDoTableDiv" ng-controller="toDosTableCtrl">
 	<form>
 		<div class="form-group">
 			<div class="input-group">
@@ -51,8 +51,8 @@
 					<input type="text" ng-model="todo.task" ng-show="editingData[todo._id]"/>
 				</td>
 				<td>
-					<span ng-hide="editingData[todo._id]">{{todo.date | date: 'dd/mm/yy HH:mm'}}</span>
-					<input type="datetime-local" ng-model="todo.date" ng-show="editingData[todo._id]"/>
+					<span ng-hide="editingData[todo._id]">{{transformDate(todo.date) | date : 'dd/MM/yy HH:mm' : 'UTC'}}</span>
+					<input date-formatter type="datetime-local" ng-model="todo.date" ng-show="editingData[todo._id]"/>
 				</td>
 				<td>
 					<span ng-hide="editingData[todo._id]">{{todo.status}}</span>

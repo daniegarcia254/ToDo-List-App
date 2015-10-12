@@ -30,7 +30,7 @@ module.exports = function(config) {
       'public/js/controllers/actionButtonsCtrl.js', 
       'public/js/controllers/addToDoFormCtrl.js', 
       'public/js/controllers/removeToDosFormCtrl.js', 
-      'public/js/controllers/showResultCtrl.js', 
+      'public/js/controllers/toDosTableCtrl.js',
       'public/js/directives/todosTable.js', 
       'public/js/directives/todoAddForm.js', 
       'public/js/directives/todoRemoveForm.js', 

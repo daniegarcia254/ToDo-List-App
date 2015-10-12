@@ -7,7 +7,7 @@ angular.module('toDoApp')
  * showResultCtrl: Controller for keeping updated the table with the ToDo's
  ***********************************************************************/
 
-    .controller('showResultCtrl', function($scope, $rootScope, $http, toDoService){
+    .controller('toDosTableCtrl', function($scope, $rootScope, $http, toDoService){
 
         $scope.sortType     = ''; // set the default sort type
         $scope.sortReverse  = false;  // set the default sort order
@@ -17,10 +17,15 @@ angular.module('toDoApp')
 
         toDoService.getAll(function(data) {
             $rootScope.toDos = data;
+            $scope.totalItems = $rootScope.toDos.length;
             for (var i = 0, length =$rootScope.toDos.length; i < length; i++) {
                 $scope.editingData[$rootScope.toDos[i].id] = false;
             }
         });
+
+        $scope.transformDate = function(date) {
+            return date.substring(0,date.length-2);
+        };
 
         //Removes a single ToDo identified by its [id]
         $scope.deleteToDo = function(todo) {
@@ -38,8 +43,12 @@ angular.module('toDoApp')
         };
 
         $scope.cancelEditing = function(todo, index){
-            $scope.editingData[todo._id] = false;
-            $('#toDoTableDiv').find('tr:nth-child('+(index+1)+')').find('.cancel-edit-col').hide();
+            toDoService.getAll(function(data){
+                $rootScope.toDos = data;
+                $scope.totalItems = $rootScope.toDos.length;
+                $scope.editingData[todo._id] = false;
+                $('#toDoTableDiv').find('tr:nth-child('+(index+1)+')').find('.cancel-edit-col').hide();
+            });
         };
 
         $scope.saveToDo = function(todo, index){
@@ -47,6 +56,7 @@ angular.module('toDoApp')
             toDoService.saveToDo(todo, function(){
                 toDoService.getAll(function(data){
                     $rootScope.toDos = data;
+                    $scope.totalItems = $rootScope.toDos.length;
                     $('#toDoTableDiv').find('tr:nth-child('+(index+1)+')').find('.cancel-edit-col').hide();
                 });
             });
