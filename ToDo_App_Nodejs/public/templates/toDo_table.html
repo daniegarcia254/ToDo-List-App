@@ -1,13 +1,27 @@
 <!-- Displays a table with the ToDo's information in the variable [toDos] -->
 <div id="toDoTableDiv" ng-controller="toDosTableCtrl">
-	<form>
-		<div class="form-group">
-			<div class="input-group">
-				<div class="input-group-addon"><i class="fa fa-search"></i></div>
-				<input type="text" class="form-control" placeholder="Search ToDo" ng-model="searchToDo">
+	<div class="row">
+		<div class="col-lg-4 col-md-4 col-sm-4">
+			<form>
+				<div class="form-group">
+					<div class="input-group">
+						<div class="input-group-addon"><i class="fa fa-search"></i></div>
+						<input type="text" class="form-control" placeholder="Search ToDo" ng-model="searchQuery">
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="col-lg-4 col-md-4 col-sm-4"></div>
+		<div class="col-lg-4 col-md-4 col-sm-4">
+			<div class="checkbox pull-right">
+				<label>
+					<input type="checkbox" ng-model="checkPastToDos" ng-change="applyPastToDosFilter()">
+					Hide past ToDo's
+				</label>
 			</div>
 		</div>
-	</form>
+	</div>
+
 	<table class="table table-striped todotable">
 		<thead>
 			<tr>
@@ -45,13 +59,13 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="todo in toDos | orderBy:sortType:sortReverse | filter:paginate | filter:searchToDo">
+			<tr ng-repeat="todo in toDos | orderBy:sortType:sortReverse | filter:searchQuery | filter:paginate">
 				<td>
 					<span ng-hide="editingData[todo._id]">{{todo.task}}</span>
 					<input type="text" ng-model="todo.task" ng-show="editingData[todo._id]"/>
 				</td>
 				<td>
-					<span ng-hide="editingData[todo._id]">{{transformDate(todo.date) | date : 'dd/MM/yy HH:mm' : 'UTC'}}</span>
+					<span ng-hide="editingData[todo._id]">{{transformDate(todo.date) | date : 'dd/MM/yy HH:mm'}}</span>
 					<input date-formatter type="datetime-local" ng-model="todo.date" ng-show="editingData[todo._id]"/>
 				</td>
 				<td>
@@ -73,7 +87,7 @@
 				</td>
 				<td class="cancel-edit-col">
 					<img alt="Cancel Edit" src="/img/edit-cancel.png" class="tableImg cancelEdit"
-						 title="Candel ToDo edition" ng-click="cancelEditing(todo, $index)">
+						 title="Cancel ToDo edition" ng-click="cancelEditing(todo, $index)">
 				</td>
 				<td>
 					<img alt="Delete" src="/img/delete_icon.png" class="tableImg delIcon"
