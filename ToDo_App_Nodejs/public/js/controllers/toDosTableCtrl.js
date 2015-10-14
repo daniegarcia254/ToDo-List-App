@@ -12,7 +12,6 @@ angular.module('toDoApp')
         $scope.sortType     = ''; // set the default sort type
         $scope.sortReverse  = false;  // set the default sort order
         $scope.searchQuery   = '';     // set the default search/filter term
-        $scope.currentPage = 1;
         $scope.editingData = [];
         $scope.checkPastToDos = false;
         $scope.toDosBeingEdited = [];
@@ -76,16 +75,6 @@ angular.module('toDoApp')
                     $('#toDoTableDiv').find('tr:nth-child('+(index+1)+')').find('.cancel-edit-col').hide();
                 });
             });
-        };
-
-        //Pagination filter
-        $scope.numPerPage = 5;
-        $scope.paginate = function (todo) {
-            var begin, end, index;
-            begin = ($scope.currentPage - 1) * $scope.numPerPage;
-            end = begin + $scope.numPerPage;
-            index = $rootScope.toDos.indexOf(todo);
-            return (begin <= index && index < end);
         };
 
         //Hide/Show past ToDo's
