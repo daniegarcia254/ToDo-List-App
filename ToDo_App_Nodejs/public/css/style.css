@@ -112,9 +112,6 @@ table.todotable td {
 .tableImg:hover{
 	cursor: pointer;
 }
-.cancel-edit-col {
-	display: none;
-}
 
 /*Transition for show & hide the formularies*/
 .fadein,

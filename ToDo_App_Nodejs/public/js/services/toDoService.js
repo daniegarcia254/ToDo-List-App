@@ -12,7 +12,8 @@ angular.module('toDoApp')
                 removeToDo: removeToDo,
                 removeToDos: removeToDos,
                 createToDo: createToDo,
-                saveToDo: saveToDo
+                saveToDo: saveToDo,
+                saveToDoEditingStatus: saveToDoEditingStatus
             });
 
             function getAll(cb) {
@@ -49,6 +50,14 @@ angular.module('toDoApp')
 
             function saveToDo(todo,cb) {
                 return $http.put(APP_CONSTANTS.API_URI, todo)
+                    .success(cb)
+                    .error(function(error){
+                        console.log(error);
+                    });
+            }
+
+            function saveToDoEditingStatus(todo,cb) {
+                return $http.put(APP_CONSTANTS.API_URI+"/editingStatus", todo)
                     .success(cb)
                     .error(function(error){
                         console.log(error);

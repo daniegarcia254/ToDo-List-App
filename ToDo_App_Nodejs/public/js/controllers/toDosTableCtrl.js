@@ -12,16 +12,14 @@ angular.module('toDoApp')
         $scope.sortType     = ''; // set the default sort type
         $scope.sortReverse  = false;  // set the default sort order
         $scope.searchQuery   = '';     // set the default search/filter term
-        $scope.editingData = [];
         $scope.checkPastToDos = false;
-        $scope.toDosBeingEdited = [];
 
         //Load ToDo's
         toDoService.getAll(function(data) {
             $rootScope.toDos = data;
             $scope.totalItems = $rootScope.toDos.length;
-            for (var i = 0, length =$rootScope.toDos.length; i < length; i++) {
-                $scope.editingData[$rootScope.toDos[i].id] = false;
+            for (var i= 0; i<$rootScope.toDos.length; i++){
+                $rootScope.toDos[i].editing = false;
             }
         });
 
@@ -42,37 +40,35 @@ angular.module('toDoApp')
 
         //Allow to edit a ToDo
         $scope.modify = function(todo, index){
-            $scope.editingData[todo._id] = true;
-            $('#toDoTableDiv').find('tr:nth-child('+(index+1)+')').find('.cancel-edit-col').show();
-            $scope.toDosBeingEdited.push(todo);
-            console.log($scope.toDosBeingEdited[0]);
+            todo.editing = true;
+            toDoService.saveToDoEditingStatus(todo,function(){});
         };
 
         //Cancel a ToDo edition
         $scope.cancelEditing = function(todo, index){
-           toDoService.getAll(function(data){
-               if ($scope.checkPastToDos){
-                   $rootScope.toDos = data.filter(function (todo) {
-                       return (new Date() < new Date(todo.date));
-                   });
-                   $scope.totalItems = $rootScope.toDos.length;
-               } else {
-                   $rootScope.toDos = data;
-               }
-               $scope.totalItems = $rootScope.toDos.length;
-               $scope.editingData[todo._id] = false;
-               $('#toDoTableDiv').find('tr:nth-child('+(index+1)+')').find('.cancel-edit-col').hide();
+            todo.editing = false;
+            toDoService.saveToDoEditingStatus(todo,function(){
+                toDoService.getAll(function(data){
+                    if ($scope.checkPastToDos){
+                        $rootScope.toDos = data.filter(function (todo) {
+                            return (new Date() < new Date(todo.date));
+                        });
+                        $scope.totalItems = $rootScope.toDos.length;
+                    } else {
+                        $rootScope.toDos = data;
+                    }
+                    $scope.totalItems = $rootScope.toDos.length;
+                });
             });
         };
 
         //Save a ToDo edition
         $scope.saveToDo = function(todo, index){
-            $scope.editingData[todo._id] = false;
+            todo.editing = false;
             toDoService.saveToDo(todo, function(){
                 toDoService.getAll(function(data){
                     $rootScope.toDos = data;
                     $scope.totalItems = $rootScope.toDos.length;
-                    $('#toDoTableDiv').find('tr:nth-child('+(index+1)+')').find('.cancel-edit-col').hide();
                 });
             });
         };
@@ -88,9 +84,6 @@ angular.module('toDoApp')
                 toDoService.getAll(function(data) {
                     $rootScope.toDos = data;
                     $scope.totalItems = $rootScope.toDos.length;
-                    for (var i = 0, length =$rootScope.toDos.length; i < length; i++) {
-                        $scope.editingData[$rootScope.toDos[i].id] = false;
-                    }
                 });
             }
         };

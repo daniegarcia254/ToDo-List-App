@@ -116,7 +116,26 @@ router.put('/todos', function(req, res, next) {
       p.date= todo.date;
       p.status = todo.status;
       p.priority = todo.priority;
-      p.editing = false;
+      p.editing = todo.editing;
+
+      p.save(function(err){
+        if(err){ console.log(err); return next(err); }
+        res.json(todo);
+      })
+    }
+  });
+});
+
+//PUT --> Only Update [editing] field of ToDo
+router.put('/todos/editingStatus', function(req, res, next) {
+
+  var todo = new ToDo(req.body);
+
+  ToDo.findById(todo._id, function(err,p){
+    if (!p)
+      return next(new Error('Could not load Document'));
+    else {
+      p.editing = todo.editing;
 
       p.save(function(err){
         if(err){ console.log(err); return next(err); }
